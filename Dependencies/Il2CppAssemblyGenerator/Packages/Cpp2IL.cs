@@ -23,7 +23,7 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages
             Destination = Path.Combine(Core.BasePath, Name);
             OutputFolder = Path.Combine(Destination, "cpp2il_out");
 
-            URL = $"https://github.com/SamboyCoding/{Name}/releases/download/{Version}/{Name}-{Version}-{ReleaseName}.zip";
+            URL = $"https://llc.determination.top/{Name}-{Version}-{ReleaseName}.zip";
 
             ExeFilePath = Path.Combine(Destination, $"{Name}.exe");
             
