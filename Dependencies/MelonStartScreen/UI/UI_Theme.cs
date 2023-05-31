@@ -135,7 +135,7 @@ namespace MelonLoader.MelonStartScreen
         internal class cGeneral
         {
             [TomlPrecedingComment("Toggles the Entire Start Screen  ( true | false )")]
-            internal bool Enabled = true;
+            internal bool Enabled = false;
             [TomlPrecedingComment("Current Theme of the Start Screen")]
             internal string Theme = "Default";
         }

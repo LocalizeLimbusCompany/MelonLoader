@@ -40,56 +40,7 @@ namespace MelonLoader.MelonStartScreen
 
         private static int LoadAndRun(LemonFunc<int> functionToWaitForAsync)
         {
-            // Start Screen has no signatures for Development Builds of UnityPlayer.dll
-            if (MelonUnityEngine.UnityDebug.isDebugBuild)
-                return functionToWaitForAsync();
-
-            Logger.Msg("Initializing...");
-
-            FolderPath = Path.Combine(MelonEnvironment.UserDataDirectory, "MelonStartScreen");
-            if (!Directory.Exists(FolderPath))
-                Directory.CreateDirectory(FolderPath);
-
-            ThemesFolderPath = Path.Combine(FolderPath, "Themes");
-            if (!Directory.Exists(ThemesFolderPath))
-                Directory.CreateDirectory(ThemesFolderPath);
-
-            UI_Theme.Load();
-            if (!UI_Theme.General.Enabled)
-                return functionToWaitForAsync();
-
-            // We try to resolve all the signatures, which are available for Unity 2018.1.0+
-            // If we can't find them (signatures changed or <2018.1.0), then we run the function and return.
-            try
-            {
-                if (!NativeSignatureResolver.Apply())
-                    return functionToWaitForAsync();
-
-                if (!ApplyUser32SetTimerPatch())
-                    return functionToWaitForAsync();
-
-                MelonDebug.Msg("Initializing Screen Renderer");
-                ScreenRenderer.Init();
-                MelonDebug.Msg("Screen Renderer initialized");
-
-                RegisterMessageCallbacks();
-
-                // Initial render
-                ScreenRenderer.Render();
-            }
-            catch (Exception e)
-            {
-                Logger.Error(e);
-                ScreenRenderer.disabled = true;
-                return functionToWaitForAsync();
-            }
-
-            SubscribeToCoreCallbacks();
-
-            StartFunction(functionToWaitForAsync);
-            MainLoop();
-
-            return functionRunResult;
+            return functionToWaitForAsync();
         }
 
         private static void SubscribeToCoreCallbacks()
