@@ -31,7 +31,7 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages
             
             // 获取最快节点
             fastestNode = GetFastnetNode();
-            URL = $"https://"+fastestNode"/{Name}-{Version}-{ReleaseName}.zip";
+            URL = $"https://"+fastestNode+"/{Name}-{Version}-{ReleaseName}.zip";
 
             ExeFilePath = Path.Combine(Destination, $"{Name}.exe");
             
