@@ -33,7 +33,7 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages
             Destination = Path.Combine(Core.BasePath, Name);
             OutputFolder = Path.Combine(Destination, "cpp2il_out");
             
-            URL = "https://"+fastestNode+$"/{Name}-{Version}-{ReleaseName}.zip";
+            URL = "https://"+fastestNode+$"/files/{Name}-{Version}-{ReleaseName}.zip";
 
             ExeFilePath = Path.Combine(Destination, $"{Name}.exe");
             
