@@ -15,7 +15,7 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages
     internal class UnityDependencies : Models.PackageBase
     {
         // 获取最快节点
-        fastestNode = GetFastnetNode();
+        private string fastestNode = GetFastnetNode();
         
         internal UnityDependencies()
         {
