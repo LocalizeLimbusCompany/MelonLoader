@@ -28,8 +28,10 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages
             Name = nameof(Cpp2IL);
             Destination = Path.Combine(Core.BasePath, Name);
             OutputFolder = Path.Combine(Destination, "cpp2il_out");
-
-            URL = $"https://"+GetFastnetNode()+"/{Name}-{Version}-{ReleaseName}.zip";
+            
+            // 获取最快节点
+            fastestNode = GetFastnetNode();
+            URL = $"https://"+fastestNode"/{Name}-{Version}-{ReleaseName}.zip";
 
             ExeFilePath = Path.Combine(Destination, $"{Name}.exe");
             
