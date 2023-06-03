@@ -16,10 +16,11 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages
         private static string ReleaseName =>
             MelonUtils.IsWindows ? "Windows-Netframework472" : MelonUtils.IsUnix ? "Linux" : "OSX";
         // 获取最快节点
-        private static string fastestNode = GetFastnetNode();
+        private static string fastestNode;
             
         internal Cpp2IL()
         {
+            fastestNode = GetFastnetNode();
             Version = MelonLaunchOptions.Il2CppAssemblyGenerator.ForceVersion_Dumper;
 #if !DEBUG
             if (string.IsNullOrEmpty(Version) || Version.Equals("0.0.0.0"))
