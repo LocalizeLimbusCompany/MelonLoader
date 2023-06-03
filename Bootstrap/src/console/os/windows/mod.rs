@@ -102,10 +102,8 @@ fn default_title() -> String {
         true => format!("[D] MelonLoader v{MELON_VERSION}"),
         false => format!("MelonLoader v{MELON_VERSION}"),
     };
-
-    
-    title.push_str(" Open-LLCBeta\0")
-    
+   
+    title.push_str(" Open-LLCBeta\0");    
 
     title
 }
