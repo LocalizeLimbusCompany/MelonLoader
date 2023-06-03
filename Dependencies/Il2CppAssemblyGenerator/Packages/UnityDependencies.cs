@@ -14,11 +14,11 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages
 {
     internal class UnityDependencies : Models.PackageBase
     {
+        // 获取最快节点
+        fastestNode = GetFastnetNode();
+        
         internal UnityDependencies()
         {
-            // 获取最快节点
-            fastestNode = GetFastnetNode();
-            
             Name = nameof(UnityDependencies);
             Version = InternalUtils.UnityInformationHandler.EngineVersion.ToStringWithoutType();
             URL = $"https://"+fastestNode+"/{Version}.zip";
