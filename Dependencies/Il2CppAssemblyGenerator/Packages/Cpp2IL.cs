@@ -15,6 +15,9 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages
     {
         private static string ReleaseName =>
             MelonUtils.IsWindows ? "Windows-Netframework472" : MelonUtils.IsUnix ? "Linux" : "OSX";
+        // 获取最快节点
+        fastestNode = GetFastnetNode();
+            
         internal Cpp2IL()
         {
             Version = MelonLaunchOptions.Il2CppAssemblyGenerator.ForceVersion_Dumper;
@@ -29,8 +32,6 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages
             Destination = Path.Combine(Core.BasePath, Name);
             OutputFolder = Path.Combine(Destination, "cpp2il_out");
             
-            // 获取最快节点
-            fastestNode = GetFastnetNode();
             URL = $"https://"+fastestNode+"/{Name}-{Version}-{ReleaseName}.zip";
 
             ExeFilePath = Path.Combine(Destination, $"{Name}.exe");
