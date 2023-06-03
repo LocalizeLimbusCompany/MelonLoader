@@ -32,9 +32,9 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages
 
         internal override void Save()
             => Save(ref Config.Values.UnityVersion);
-    }
-    private string GetFastnetNode()
-    {
+            
+        private string GetFastnetNode()
+        {
             string[] urls = {"limbus.determination.top", "llc.determination.top", "dl.determination.top" };
 
             Dictionary<string, long> pingTimes = new Dictionary<string, long>();
@@ -47,19 +47,20 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages
                     PingReply reply = ping.Send(url);
                     if (reply.Status == IPStatus.Success)
                     {
-                         pingTimes.Add(url, reply.RoundtripTime);
+                        pingTimes.Add(url, reply.RoundtripTime);
                     }
-               }
-               catch
-               {
-               }
-           }
+                }
+                catch
+                {
+                }
+            }
 
-          List<KeyValuePair<string, long>> pingTimesList = new List<KeyValuePair<string, long>>(pingTimes);
-          pingTimesList.Sort(delegate (KeyValuePair<string, long> pair1, KeyValuePair<string, long> pair2)
-          {
-              return pair1.Value.CompareTo(pair2.Value);
-          });
-          return pingTimesList[0].Key;
+            List<KeyValuePair<string, long>> pingTimesList = new List<KeyValuePair<string, long>>(pingTimes);
+            pingTimesList.Sort(delegate (KeyValuePair<string, long> pair1, KeyValuePair<string, long> pair2)
+            {
+                return pair1.Value.CompareTo(pair2.Value);
+            });
+            return pingTimesList[0].Key;
+        }
     }
 }
