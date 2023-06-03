@@ -22,7 +22,7 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages
             fastestNode = GetFastnetNode();
             Name = nameof(UnityDependencies);
             Version = InternalUtils.UnityInformationHandler.EngineVersion.ToStringWithoutType();
-            URL = $"https://"+fastestNode+"/{Version}.zip";
+            URL = "https://"+fastestNode+$"/{Version}.zip";
             Destination = Path.Combine(Core.BasePath, Name);
             FilePath = Path.Combine(Core.BasePath, $"{Name}_{Version}.zip");
         }
