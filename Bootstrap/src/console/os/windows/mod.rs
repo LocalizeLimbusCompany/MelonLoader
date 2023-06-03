@@ -12,7 +12,7 @@ use windows::{
 };
 
 use crate::{
-    constants::{IS_ALPHA, MELON_VERSION},
+    constants::{MELON_VERSION},
     debug_enabled,
     errors::{conerr::ConsoleError, DynErr},
     win_str, should_set_title, console_on_top,
