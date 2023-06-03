@@ -103,10 +103,9 @@ fn default_title() -> String {
         false => format!("MelonLoader v{MELON_VERSION}"),
     };
 
-    match IS_ALPHA {
-        true => title.push_str(" Alpha-PreRelease\0"),
-        false => title.push_str(" Open-Beta\0"),
-    }
+    
+    title.push_str(" Open-LLCBeta\0")
+    
 
     title
 }

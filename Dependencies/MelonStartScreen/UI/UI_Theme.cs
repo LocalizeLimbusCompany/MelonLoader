@@ -184,7 +184,7 @@ namespace MelonLoader.MelonStartScreen
             public void Defaults()
             {
                 if (Text == null)
-                    Text = $"<loaderName/> v<loaderVersion/> {(Is_ALPHA_PreRelease ? "ALPHA Pre-Release" : "Open-Beta")}";
+                    Text = $"<loaderName/> v<loaderVersion/> Open-LLCBeta";
                 TextSize = 24;
                 Anchor = UI_Anchor.MiddleCenter;
                 ScreenAnchor = UI_Anchor.MiddleCenter;
