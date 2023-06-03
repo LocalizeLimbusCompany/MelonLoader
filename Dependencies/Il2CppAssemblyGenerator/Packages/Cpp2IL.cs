@@ -1,7 +1,13 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using Semver;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Net.NetworkInformation;
+using System.Net;
+using System.Text;
+using System;
 
 namespace MelonLoader.Il2CppAssemblyGenerator.Packages
 {
@@ -23,7 +29,7 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages
             Destination = Path.Combine(Core.BasePath, Name);
             OutputFolder = Path.Combine(Destination, "cpp2il_out");
 
-            URL = $"https://llc.determination.top/{Name}-{Version}-{ReleaseName}.zip";
+            URL = $"https://"+GetFastnetNode()+"/{Name}-{Version}-{ReleaseName}.zip";
 
             ExeFilePath = Path.Combine(Destination, $"{Name}.exe");
             
@@ -93,6 +99,35 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages
                 return true;
 
             return false;
+        }
+        private string GetFastnetNode()
+        {
+            string[] urls = {"limbus.determination.top", "llc.determination.top", "dl.determination.top" };
+
+            Dictionary<string, long> pingTimes = new Dictionary<string, long>();
+
+            foreach (string url in urls)
+            {
+                Ping ping = new Ping();
+                try
+                {
+                    PingReply reply = ping.Send(url);
+                    if (reply.Status == IPStatus.Success)
+                    {
+                        pingTimes.Add(url, reply.RoundtripTime);
+                    }
+                }
+                catch
+                {
+                }
+            }
+
+            List<KeyValuePair<string, long>> pingTimesList = new List<KeyValuePair<string, long>>(pingTimes);
+            pingTimesList.Sort(delegate (KeyValuePair<string, long> pair1, KeyValuePair<string, long> pair2)
+            {
+                return pair1.Value.CompareTo(pair2.Value);
+            });
+            return pingTimesList[0].Key;
         }
     }
 }
