@@ -16,9 +16,12 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages
     {
         internal UnityDependencies()
         {
+            // 获取最快节点
+            fastestNode = GetFastnetNode();
+            
             Name = nameof(UnityDependencies);
             Version = InternalUtils.UnityInformationHandler.EngineVersion.ToStringWithoutType();
-            URL = $"https://"+GetFastnetNode()+"/{Version}.zip";
+            URL = $"https://"+fastestNode+"/{Version}.zip";
             Destination = Path.Combine(Core.BasePath, Name);
             FilePath = Path.Combine(Core.BasePath, $"{Name}_{Version}.zip");
         }
@@ -31,7 +34,7 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages
             => Save(ref Config.Values.UnityVersion);
     }
     private string GetFastnetNode()
-        {
+    {
             string[] urls = {"limbus.determination.top", "llc.determination.top", "dl.determination.top" };
 
             Dictionary<string, long> pingTimes = new Dictionary<string, long>();
@@ -44,19 +47,19 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages
                     PingReply reply = ping.Send(url);
                     if (reply.Status == IPStatus.Success)
                     {
-                        pingTimes.Add(url, reply.RoundtripTime);
+                         pingTimes.Add(url, reply.RoundtripTime);
                     }
-                }
-                catch
-                {
-                }
-            }
+               }
+               catch
+               {
+               }
+           }
 
-            List<KeyValuePair<string, long>> pingTimesList = new List<KeyValuePair<string, long>>(pingTimes);
-            pingTimesList.Sort(delegate (KeyValuePair<string, long> pair1, KeyValuePair<string, long> pair2)
-            {
-                return pair1.Value.CompareTo(pair2.Value);
-            });
-            return pingTimesList[0].Key;
-        }
+          List<KeyValuePair<string, long>> pingTimesList = new List<KeyValuePair<string, long>>(pingTimes);
+          pingTimesList.Sort(delegate (KeyValuePair<string, long> pair1, KeyValuePair<string, long> pair2)
+          {
+              return pair1.Value.CompareTo(pair2.Value);
+          });
+          return pingTimesList[0].Key;
+    }
 }
