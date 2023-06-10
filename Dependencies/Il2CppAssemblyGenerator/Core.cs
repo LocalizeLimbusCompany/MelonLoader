@@ -54,9 +54,6 @@ namespace MelonLoader.Il2CppAssemblyGenerator
         {
             Config.Initialize();
 
-            if (!MelonLaunchOptions.Il2CppAssemblyGenerator.OfflineMode)
-                RemoteAPI.Contact();
-
             dumper = new Cpp2IL();
             il2cppinterop = new Packages.Il2CppInterop();
             unitydependencies = new UnityDependencies();
