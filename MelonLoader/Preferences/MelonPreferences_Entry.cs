@@ -20,7 +20,7 @@ namespace MelonLoader
 
         public Preferences.ValueValidator Validator { get; internal set; }
 
-        public string GetExceptionMessage(string submsg) 
+        public string GetExceptionMessage(string submsg)
             => $"Attempted to {submsg} {DisplayName} when it is a {GetReflectedType().FullName}!";
 
         public abstract Type GetReflectedType();

@@ -1,7 +1,7 @@
-﻿using System;
-using System.Reflection;
-using MelonLoader.MonoInternals.ResolveInternals;
+﻿using MelonLoader.MonoInternals.ResolveInternals;
 using MelonLoader.Utils;
+using System;
+using System.Reflection;
 
 namespace MelonLoader.MonoInternals
 {

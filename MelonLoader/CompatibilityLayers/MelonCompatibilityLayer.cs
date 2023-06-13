@@ -1,7 +1,6 @@
 ﻿using MelonLoader.Modules;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 
 namespace MelonLoader
@@ -19,7 +18,7 @@ namespace MelonLoader
             new MelonModule.Info(Path.Combine(baseDirectory, "IPA.dll"), MelonUtils.IsGameIl2Cpp),
             new MelonModule.Info(Path.Combine(baseDirectory, "EOS.dll"), () => !MelonUtils.IsWindows)
         };
-        
+
         private static void CheckGameLayerWithPlatform(string name, Func<bool> shouldBeIgnored)
         {
             string nameNoSpaces = name.Replace(' ', '_');

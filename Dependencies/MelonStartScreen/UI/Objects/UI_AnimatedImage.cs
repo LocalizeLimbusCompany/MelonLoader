@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using MelonUnityEngine;
+using System.Collections.Generic;
 using System.Diagnostics;
-using MelonUnityEngine;
 
 namespace MelonLoader.MelonStartScreen.UI.Objects
 {
     internal class UI_AnimatedImage : UI_Image
     {
-        private Stopwatch stopwatch = new Stopwatch();
+        private Stopwatch stopwatch = new();
         private float frameDelayMS = 90f;
         private Texture2D[] textures;
 
@@ -16,12 +16,12 @@ namespace MelonLoader.MelonStartScreen.UI.Objects
         {
             config = imageSettings;
 
-            mgGif.Decoder decoder = new mgGif.Decoder(filedata);
+            mgGif.Decoder decoder = new(filedata);
 
             var img = decoder.NextImage();
             frameDelayMS = img.Delay;
 
-            List<Texture2D> images = new List<Texture2D>();
+            List<Texture2D> images = new();
             while (img != null)
             {
                 Texture2D newtexture = img.CreateTexture(config.Filter);

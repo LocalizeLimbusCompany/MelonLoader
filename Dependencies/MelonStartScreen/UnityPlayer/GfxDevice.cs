@@ -1,6 +1,6 @@
 ﻿using MelonLoader;
-using MelonLoader.NativeUtils;
 using MelonLoader.MelonStartScreen.NativeUtils;
+using MelonLoader.NativeUtils;
 using System;
 using System.Runtime.InteropServices;
 using UnhollowerMini;
@@ -87,13 +87,13 @@ namespace UnityPlayer
                 case /*DX11*/ 2:
                     if (m_D3D11WaitForLastPresentationAndGetTimestamp == null)
                         throw new NotImplementedException();
-                    m_D3D11WaitForLastPresentationAndGetTimestamp(gfxDevice); 
+                    m_D3D11WaitForLastPresentationAndGetTimestamp(gfxDevice);
                     break;
 
                 case /*DX12*/ 18:
                     if (m_D3D12WaitForLastPresentationAndGetTimestamp == null)
                         throw new NotImplementedException();
-                    m_D3D12WaitForLastPresentationAndGetTimestamp(gfxDevice); 
+                    m_D3D12WaitForLastPresentationAndGetTimestamp(gfxDevice);
                     break;
 
                 default:

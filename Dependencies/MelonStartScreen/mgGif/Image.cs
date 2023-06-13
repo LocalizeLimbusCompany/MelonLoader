@@ -1,5 +1,5 @@
-﻿using System;
-using MelonUnityEngine;
+﻿using MelonUnityEngine;
+using System;
 
 namespace mgGif
 {

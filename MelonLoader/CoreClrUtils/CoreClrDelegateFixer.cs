@@ -36,7 +36,7 @@ namespace MelonLoader.CoreClrUtils
                     var modName = melon?.Info.Name ?? "Unknown mod";
 
                     //Try and patch the delegate if we can
-                    if(melon != null && managedMethod is MethodInfo methodInfo)
+                    if (melon != null && managedMethod is MethodInfo methodInfo)
                     {
                         try
                         {
@@ -50,12 +50,14 @@ namespace MelonLoader.CoreClrUtils
                             logger.Warning($"Encountered a dodgy native hook to a managed method in melon {modName}: {methodInfo.DeclaringType.FullName}::{methodInfo.Name}. It has been wrapped in a proper unmanaged delegate, but please fix your mod! You also won't be able to detach this hook!");
 
                             return true;
-                        } catch(Exception ex)
+                        }
+                        catch (Exception ex)
                         {
                             MelonLogger.Error("Failed to repair invalid native hook: ", ex);
                             //Ignore, fall down to error below
                         }
-                    } else
+                    }
+                    else
                     {
                         logger.Error($"Failed to resolve the offending melon from the stack and/or the managed method target. ManagedMethod is {managedMethod}, of type {managedMethod.GetType()}, stack is {Environment.StackTrace}");
                     }

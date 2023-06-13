@@ -1,6 +1,6 @@
-﻿using System;
+﻿using MelonLoader.Utils;
+using System;
 using System.Drawing;
-using MelonLoader.Utils;
 
 namespace MelonLoader
 {
@@ -22,17 +22,17 @@ namespace MelonLoader
         /// </summary>
         public Color DrawingColor { get; internal set; }
 
-        public MelonColorAttribute() 
+        public MelonColorAttribute()
             => DrawingColor = MelonLogger.DefaultTextColor;
 
-        public MelonColorAttribute(Color drawingColor) 
+        public MelonColorAttribute(Color drawingColor)
             => DrawingColor = drawingColor;
 
         [Obsolete("ConsoleColor is obsolete, use the (int, int, int, int) or (Color) constructor instead.")]
-        public MelonColorAttribute(ConsoleColor color) 
+        public MelonColorAttribute(ConsoleColor color)
             => Color = ((color == ConsoleColor.Black) ? LoggerUtils.DrawingColorToConsoleColor(MelonLogger.DefaultMelonColor) : color);
 
-        public MelonColorAttribute(int alpha, int red, int green, int blue) 
-            => DrawingColor =  System.Drawing.Color.FromArgb(alpha, red, green, blue);
+        public MelonColorAttribute(int alpha, int red, int green, int blue)
+            => DrawingColor = System.Drawing.Color.FromArgb(alpha, red, green, blue);
     }
 }

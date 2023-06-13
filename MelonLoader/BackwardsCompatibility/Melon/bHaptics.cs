@@ -54,7 +54,7 @@ namespace MelonLoader
         [Obsolete("MelonLoader.bHaptics.SubmitRegistered is Only Here for Compatibility Reasons. Please use bHapticsLib.bHapticsManager.PlayRegistered instead.")]
         public static void SubmitRegistered(string key, string altKey, ScaleOption sOption, RotationOption rOption)
             => bHapticsLib.bHapticsManager.PlayRegistered(key, altKey,
-                new bHapticsLib.ScaleOption { Duration = sOption.Duration, Intensity = sOption.Intensity }, 
+                new bHapticsLib.ScaleOption { Duration = sOption.Duration, Intensity = sOption.Intensity },
                 new bHapticsLib.RotationOption { OffsetAngleX = rOption.OffsetX, OffsetY = rOption.OffsetY });
 
         [Obsolete("MelonLoader.bHaptics.TurnOff is Only Here for Compatibility Reasons. Please use bHapticsLib.bHapticsManager.StopPlayingAll instead.")]
@@ -71,11 +71,11 @@ namespace MelonLoader
             => bHapticsLib.bHapticsManager.Play(key, durationMillis, PositionTypeToPositionID(position), bytes);
 
 
-        private static Converter<DotPoint, bHapticsLib.DotPoint> DotPointConverter = new Converter<DotPoint, bHapticsLib.DotPoint>((x) 
-            => new bHapticsLib.DotPoint 
+        private static Converter<DotPoint, bHapticsLib.DotPoint> DotPointConverter = new Converter<DotPoint, bHapticsLib.DotPoint>((x)
+            => new bHapticsLib.DotPoint
             {
                 Index = x.Index,
-                Intensity = x.Intensity 
+                Intensity = x.Intensity
             });
         [Obsolete("MelonLoader.bHaptics.Submit is Only Here for Compatibility Reasons. Please use bHapticsLib.bHapticsManager.Play instead.")]
         public static void Submit(string key, DeviceType type, bool isLeft, List<DotPoint> points, int durationMillis) => Submit(key, DeviceTypeToPositionType(type, isLeft), points, durationMillis);
@@ -131,14 +131,14 @@ namespace MelonLoader
         public enum PositionType
         {
             All = 0,
-            Left = 1, 
+            Left = 1,
             Right = 2,
             Vest = 3,
             Head = 4,
             Racket = 5,
             HandL = 6,
             HandR = 7,
-            FootL = 8, 
+            FootL = 8,
             FootR = 9,
             ForearmL = 10,
             ForearmR = 11,
@@ -146,9 +146,9 @@ namespace MelonLoader
             VestBack = 202,
             GloveLeft = 203,
             GloveRight = 204,
-            Custom1 = 251, 
-            Custom2 = 252, 
-            Custom3 = 253, 
+            Custom1 = 251,
+            Custom2 = 252,
+            Custom3 = 253,
             Custom4 = 254
         }
 

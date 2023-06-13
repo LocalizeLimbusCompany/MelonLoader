@@ -1,5 +1,4 @@
-﻿using MelonLoader;
-using System;
+﻿using System;
 using UnhollowerMini;
 
 namespace Il2CppSystem

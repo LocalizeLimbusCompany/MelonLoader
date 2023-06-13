@@ -29,7 +29,7 @@ namespace MelonLoader.NativeHost
             var assemblyPath = Marshal.PtrToStringUni(pathNative);
             var typeName = Marshal.PtrToStringUni(typeNameNative);
             var methodName = Marshal.PtrToStringUni(methodNameNative);
-            
+
             ArgumentNullException.ThrowIfNull(assemblyPath);
             ArgumentNullException.ThrowIfNull(typeName);
             ArgumentNullException.ThrowIfNull(methodName);
@@ -42,10 +42,10 @@ namespace MelonLoader.NativeHost
             Func<AssemblyName, Assembly> resolver = name => AssemblyLoadContext.Default.LoadFromAssemblyName(name);
 
             var type = Type.GetType(typeName, resolver, null, true);
-            
-            if(type == null)
+
+            if (type == null)
                 throw new TypeLoadException("Failed to load type: " + typeName);
-            
+
             var method = type.GetMethod(methodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
 
             if (method == null)
@@ -54,7 +54,7 @@ namespace MelonLoader.NativeHost
             *resultHandle = (void*)method.MethodHandle.GetFunctionPointer();
         }
 
-        [UnmanagedCallersOnly(CallConvs = new[] {typeof(CallConvStdcall)})]
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvStdcall) })]
         internal static unsafe int LoadAssemblyFromByteArray(IntPtr baseOfArray, int arrayLength)
         {
             var managedArray = new byte[arrayLength];
@@ -75,9 +75,9 @@ namespace MelonLoader.NativeHost
 
             var asm = _loadedAssemblies[assemblyId];
             var name = Marshal.PtrToStringUni(namePtr);
-            
+
             ArgumentNullException.ThrowIfNull(name);
-            
+
             var type = asm.GetType(name);
             if (type == null)
             {
@@ -99,7 +99,7 @@ namespace MelonLoader.NativeHost
             var type = _loadedTypes[typeId];
 
             int ret;
-            if(numParams == 0)
+            if (numParams == 0)
             {
                 ret = _allocatedObjects.Count;
                 _allocatedObjects.Add(Activator.CreateInstance(type)!);
@@ -109,7 +109,7 @@ namespace MelonLoader.NativeHost
             var paramTypes = new string[numParams];
             for (var i = 0; i < numParams; i++)
                 paramTypes[i] = Marshal.PtrToStringUni(pParamTypes[i]) ?? throw new($"Null parameter type at index {i}");
-            
+
             var paramValues = new object?[numParams];
             for (var i = 0; i < numParams; i++)
                 paramValues[i] = GetParam(paramTypes[i], pParamValues[i]);
@@ -194,19 +194,19 @@ namespace MelonLoader.NativeHost
 
             var method = type.GetMethod(methodName, (BindingFlags)(-1), paramTypes!);
 
-            if(method == null)
+            if (method == null)
             {
                 Console.WriteLine($"[Stereo] Couldn't find method with name '{methodName}', param types {string.Join<Type?>(", ", paramTypes)}");
                 return 0;
             }
 
-            if(method.GetCustomAttribute<UnmanagedCallersOnlyAttribute>() == null)
+            if (method.GetCustomAttribute<UnmanagedCallersOnlyAttribute>() == null)
             {
                 Console.WriteLine($"[Stereo] {method} is not annotated as UnmanagedCallersOnly, so cannot have a pointer returned from GetPointerToUcoMethod");
                 return 0;
             }
 
-            return (nuint) method.MethodHandle.GetFunctionPointer().ToInt64();
+            return (nuint)method.MethodHandle.GetFunctionPointer().ToInt64();
         }
 
         private static string GetSystemTypeName(string primitiveName)
@@ -243,6 +243,6 @@ namespace MelonLoader.NativeHost
                 "string" => Marshal.PtrToStringUni(pParam),
                 _ => throw new($"Unknown param type {paramType}")
             };
-       
+
     }
 }

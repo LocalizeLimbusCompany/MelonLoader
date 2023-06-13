@@ -1,5 +1,5 @@
-﻿using System;
-using Semver;
+﻿using Semver;
+using System;
 
 namespace MelonLoader
 {

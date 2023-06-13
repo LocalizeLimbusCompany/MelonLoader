@@ -10,12 +10,12 @@ namespace MelonLoader.Preferences
         private Type SystemType;
         private object value;
         internal IO.File File = null;
-        
-        public string Identifier { get;  internal set; }
+
+        public string Identifier { get; internal set; }
         public string DisplayName { get; internal set; }
 
         internal static MelonPreferences_ReflectiveCategory Create<T>(string categoryName, string displayName) => new MelonPreferences_ReflectiveCategory(typeof(T), categoryName, displayName);
-        
+
         private MelonPreferences_ReflectiveCategory(Type type, string categoryName, string displayName)
         {
             SystemType = type;
@@ -54,9 +54,9 @@ namespace MelonLoader.Preferences
 
         internal TomlValue Save()
         {
-            if(value == null)
+            if (value == null)
                 LoadDefaults();
-            
+
             return TomletMain.ValueFrom(SystemType, value);
         }
 
@@ -66,9 +66,9 @@ namespace MelonLoader.Preferences
                 return default;
             if (value == null)
                 LoadDefaults();
-            return (T) value;
+            return (T)value;
         }
-        
+
         public void SetFilePath(string filepath, bool autoload = true, bool printmsg = true)
         {
             if (File != null)
@@ -107,7 +107,7 @@ namespace MelonLoader.Preferences
             }
             MelonPreferences.LoadFileAndRefreshCategories(MelonPreferences.DefaultFile);
         }
-        
+
         public void SaveToFile(bool printmsg = true)
         {
             IO.File currentfile = File;

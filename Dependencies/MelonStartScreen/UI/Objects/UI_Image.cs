@@ -1,6 +1,6 @@
-﻿using System;
+﻿using MelonUnityEngine;
+using System;
 using System.IO;
-using MelonUnityEngine;
 
 namespace MelonLoader.MelonStartScreen.UI.Objects
 {

@@ -6,7 +6,7 @@ namespace MelonLoader.Support
 {
     internal class SupportModule_To : ISupportModule_To
     {
-        internal static readonly List<IEnumerator> QueuedCoroutines = new List<IEnumerator>();
+        internal static readonly List<IEnumerator> QueuedCoroutines = new();
         public object StartCoroutine(IEnumerator coroutine)
         {
             if (Main.component != null)

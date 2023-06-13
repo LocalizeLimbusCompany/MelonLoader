@@ -41,7 +41,8 @@ namespace MelonLoader.NativeHost
             try
             {
                 MelonLoaderInvoker.Initialize();
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine("[NewEntryPoint] Caught exception invoking Initialize! " + ex);
                 Thread.Sleep(5000);
@@ -49,7 +50,7 @@ namespace MelonLoader.NativeHost
             }
         }
 
-        [UnmanagedCallersOnly(CallConvs = new[] {typeof(CallConvStdcall)})]
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvStdcall) })]
         static void PreStart()
         {
             Console.WriteLine("[NewEntryPoint] PreStarting.");
@@ -57,7 +58,8 @@ namespace MelonLoader.NativeHost
             try
             {
                 MelonLoaderInvoker.PreStart();
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine("[NewEntryPoint] Caught exception invoking PreStart! " + ex);
                 Thread.Sleep(5000);
@@ -82,7 +84,7 @@ namespace MelonLoader.NativeHost
             }
         }
 
-        
+
 
         private static Assembly? OnResolveAssembly(AssemblyLoadContext alc, AssemblyName name)
         {

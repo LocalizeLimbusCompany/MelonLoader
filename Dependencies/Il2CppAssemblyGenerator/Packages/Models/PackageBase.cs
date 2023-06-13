@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Runtime.CompilerServices;
 
 namespace MelonLoader.Il2CppAssemblyGenerator.Packages.Models
 {
@@ -53,7 +52,7 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages.Models
             configPref = Version;
             Config.Save();
         }
-        
+
         internal static void ThrowInternalFailure(string txt) => MelonLogger.ThrowInternalFailure(txt);
     }
 }

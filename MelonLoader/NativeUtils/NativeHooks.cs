@@ -1,9 +1,5 @@
 ﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace MelonLoader.NativeUtils
 {
@@ -17,7 +13,7 @@ namespace MelonLoader.NativeUtils
         #endregion
 
         #region Public Properties
-        public IntPtr Target 
+        public IntPtr Target
         {
             get
             {
@@ -65,13 +61,13 @@ namespace MelonLoader.NativeUtils
 
         public NativeHook() { }
 
-        public NativeHook(IntPtr target, IntPtr detour) 
+        public NativeHook(IntPtr target, IntPtr detour)
         {
             if (target == IntPtr.Zero)
                 throw new ArgumentNullException("target");
 
             if (detour == IntPtr.Zero)
-                throw new ArgumentNullException("detour"); 
+                throw new ArgumentNullException("detour");
 
             _targetHandle = target;
             _detourHandle = detour;
@@ -97,7 +93,7 @@ namespace MelonLoader.NativeUtils
 
         public unsafe void Detach()
         {
-            if (!IsHooked) 
+            if (!IsHooked)
                 return;
 
             if (_targetHandle == IntPtr.Zero)
@@ -106,7 +102,7 @@ namespace MelonLoader.NativeUtils
             IntPtr original = _targetHandle;
             BootstrapInterop.NativeHookDetach((IntPtr)(&original), _detourHandle);
 
-            IsHooked= false;
+            IsHooked = false;
             _trampoline = null;
             _trampolineHandle = IntPtr.Zero;
         }

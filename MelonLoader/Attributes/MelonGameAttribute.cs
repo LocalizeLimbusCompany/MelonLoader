@@ -26,12 +26,12 @@ namespace MelonLoader
         /// Returns true or false if the Game is compatible with this Assembly.
         /// </summary>
         public bool IsCompatible(string developer, string gameName) => (Universal || (!string.IsNullOrEmpty(developer) && Developer.Equals(developer) && !string.IsNullOrEmpty(gameName) && Name.Equals(gameName)));
-        
+
         /// <summary>
         /// Returns true or false if the Game is compatible with this Assembly.
         /// </summary>
         public bool IsCompatible(MelonGameAttribute att) => (IsCompatibleBecauseUniversal(att) || (att.Developer.Equals(Developer) && att.Name.Equals(Name)));
-        
+
         /// <summary>
         /// Returns true or false if the Game is compatible with this Assembly specifically because of Universal Compatibility.
         /// </summary>

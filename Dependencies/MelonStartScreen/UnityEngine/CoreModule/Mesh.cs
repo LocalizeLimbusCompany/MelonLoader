@@ -1,8 +1,7 @@
-﻿using MelonLoader;
-using MelonLoader.MelonStartScreen.NativeUtils;
+﻿using MelonLoader.MelonStartScreen.NativeUtils;
+using MelonUnityEngine.Rendering;
 using System;
 using UnhollowerMini;
-using MelonUnityEngine.Rendering;
 
 namespace MelonUnityEngine
 {

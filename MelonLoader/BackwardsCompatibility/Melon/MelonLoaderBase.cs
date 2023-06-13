@@ -1,5 +1,5 @@
-﻿using System;
-using MelonLoader.Utils;
+﻿using MelonLoader.Utils;
+using System;
 
 namespace MelonLoader
 {

@@ -1,6 +1,8 @@
 ﻿using MelonLoader.MelonStartScreen.NativeUtils;
 using MelonLoader.Modules;
+using MelonLoader.NativeUtils;
 using MelonLoader.NativeUtils.PEParser;
+using MelonLoader.Utils;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -9,8 +11,6 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Windows;
-using MelonLoader.Utils;
-using MelonLoader.NativeUtils;
 
 namespace MelonLoader.MelonStartScreen
 {
@@ -33,7 +33,7 @@ namespace MelonLoader.MelonStartScreen
 
         public static MelonLogger.Instance Logger => instance.LoggerInstance;
 
-        public override void OnInitialize() 
+        public override void OnInitialize()
         {
             instance = this;
         }
@@ -143,7 +143,7 @@ namespace MelonLoader.MelonStartScreen
         }
 
 #if NET6_0
-        [UnmanagedCallersOnly(CallConvs = new[] {typeof(CallConvCdecl)})]
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
 #endif
         private unsafe static IntPtr User32SetTimerDetour(IntPtr hWnd, IntPtr nIDEvent, uint uElapse, IntPtr timerProc)
         {

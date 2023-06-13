@@ -1,4 +1,4 @@
 ﻿namespace Harmony
 {
-	public class DelegateTypeFactory : HarmonyLib.DelegateTypeFactory { }
+    public class DelegateTypeFactory : HarmonyLib.DelegateTypeFactory { }
 }

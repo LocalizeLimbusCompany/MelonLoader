@@ -1,5 +1,5 @@
-﻿using System;
-using MelonUnityEngine;
+﻿using MelonUnityEngine;
+using System;
 
 namespace MelonLoader.MelonStartScreen.UI.Objects
 {
@@ -56,8 +56,7 @@ namespace MelonLoader.MelonStartScreen.UI.Objects
                 outerTexture = null;
             }
 
-            if (text != null)
-                text.Dispose();
+            text?.Dispose();
         }
     }
 }

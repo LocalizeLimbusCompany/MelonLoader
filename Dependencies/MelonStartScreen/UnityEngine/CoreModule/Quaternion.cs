@@ -20,6 +20,6 @@ namespace MelonUnityEngine
             InternalClassPointerStore<Quaternion>.NativeClassPtr = UnityInternals.GetClass("UnityEngine.CoreModule.dll", "UnityEngine", "Quaternion");
         }
 
-        public static Quaternion identity => new Quaternion();
+        public static Quaternion identity => new();
     }
 }

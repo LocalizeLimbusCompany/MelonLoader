@@ -18,7 +18,7 @@ namespace MelonUnityEngine
             InternalClassPointerStore<Vector3>.NativeClassPtr = UnityInternals.GetClass("UnityEngine.CoreModule.dll", "UnityEngine", "Vector3");
         }
 
-        public static Vector3 zero => new Vector3();
+        public static Vector3 zero => new();
 
         public Vector3(float x, float y, float z)
         {
@@ -27,7 +27,7 @@ namespace MelonUnityEngine
             this.z = z;
         }
 
-        public static Vector3 operator*(Vector3 a, float d)
+        public static Vector3 operator *(Vector3 a, float d)
         {
             return new Vector3(a.x * d, a.y * d, a.z * d);
         }

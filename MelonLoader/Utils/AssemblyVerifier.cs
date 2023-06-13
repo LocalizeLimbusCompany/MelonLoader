@@ -48,7 +48,7 @@ namespace MelonLoader.Utils
 
         private static bool IsNameValid(string name)
         {
-            if (name is null) 
+            if (name is null)
                 return false;
 
             foreach (char c in name)
@@ -94,7 +94,7 @@ namespace MelonLoader.Utils
             var allTypes = image.GetAllTypes().ToList();
             var numTypeDefs = allTypes.Count;
 
-            var methodTable = (MetadataTable<MethodDefinitionRow>) tableStream.GetTable(TableIndex.Method);
+            var methodTable = (MetadataTable<MethodDefinitionRow>)tableStream.GetTable(TableIndex.Method);
             var numMethodDefs = methodTable.Count;
 
             var symbolCounts = new Dictionary<char, int>();
@@ -114,7 +114,7 @@ namespace MelonLoader.Utils
                     }
                 }
 
-                if ((string) typeNsStr != null && !IsNameValid(typeNsStr))
+                if ((string)typeNsStr != null && !IsNameValid(typeNsStr))
                 {
                     //MelonDebug.Msg($"[AssemblyVerifier] {image.Name} Has an Invalid Namespace String \"{typeNsStr ?? "null"}\"");
                     return false;
@@ -138,11 +138,11 @@ namespace MelonLoader.Utils
                 CountChars(typeNameStr, ref symbolCounts);
             }
 
-            foreach(var method in methodTable)
+            foreach (var method in methodTable)
             {
                 var methodName = stringStream.GetStringByIndex(method.Name);
 
-                if(!IsNameValid(methodName))
+                if (!IsNameValid(methodName))
                 {
                     //MelonDebug.Msg($"[AssemblyVerifier] {image.Name} Has an Invalid Method: {method.Name}!");
                     return false;

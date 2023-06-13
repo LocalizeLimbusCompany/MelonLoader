@@ -11,9 +11,7 @@
         <DebugType>embedded</DebugType>
     </PropertyGroup>
     <ItemGroup>
-        <EmbeddedResource Include="Resources\Loading_Lemon.dat" />
-        <EmbeddedResource Include="Resources\Loading_Melon.dat" />
-        <EmbeddedResource Include="Resources\Logo_Lemon.dat" />
+        <EmbeddedResource Include="Resources\Logo_LLC_Zero.dat" />
         <EmbeddedResource Include="Resources\Logo_Melon.dat" />
     </ItemGroup>
     <ItemGroup>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text.RegularExpressions;
-using Semver;
+﻿using System.Collections.Generic;
 
 #pragma warning disable 0649
 
@@ -17,7 +13,7 @@ namespace MelonLoader.Il2CppAssemblyGenerator
             internal string MappingURL = null;
             internal string MappingFileSHA512 = null;
         }
-        internal static InfoStruct Info = new InfoStruct();
+        internal static InfoStruct Info = new();
 
         private class HostInfo
         {
@@ -33,7 +29,7 @@ namespace MelonLoader.Il2CppAssemblyGenerator
 
         static RemoteAPI()
         {
-            
+
         }
 
         internal static void Contact()
@@ -43,7 +39,7 @@ namespace MelonLoader.Il2CppAssemblyGenerator
 
         private static void ContactHosts()
         {
-            
+
         }
 
         private class DefaultHostInfo
@@ -62,7 +58,7 @@ namespace MelonLoader.Il2CppAssemblyGenerator
                     if (responseobj == null)
                         return null;
 
-                    InfoStruct returninfo = new InfoStruct();
+                    InfoStruct returninfo = new();
                     returninfo.ForceDumperVersion = responseobj.forceCpp2IlVersion;
                     returninfo.ObfuscationRegex = responseobj.obfuscationRegex;
                     returninfo.MappingURL = responseobj.mappingUrl;
@@ -92,7 +88,7 @@ namespace MelonLoader.Il2CppAssemblyGenerator
                     if (responseobj == null)
                         return null;
 
-                    InfoStruct returninfo = new InfoStruct();
+                    InfoStruct returninfo = new();
                     //returninfo.ForceDumperVersion = responseobj.forceDumperVersion;
                     returninfo.ObfuscationRegex = responseobj.obfuscationRegex;
                     returninfo.MappingURL = responseobj.mappingURL;

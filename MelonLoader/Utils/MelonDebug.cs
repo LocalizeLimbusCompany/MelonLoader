@@ -1,7 +1,6 @@
-﻿using System;
+﻿using MelonLoader.Utils;
+using System;
 using System.Drawing;
-using System.Runtime.CompilerServices;
-using MelonLoader.Utils;
 
 namespace MelonLoader
 {

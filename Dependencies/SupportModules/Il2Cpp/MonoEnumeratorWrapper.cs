@@ -18,18 +18,18 @@ namespace MelonLoader.Support
         public MonoEnumeratorWrapper(IEnumerator _enumerator) : base(ClassInjector.DerivedConstructorPointer<MonoEnumeratorWrapper>())
         {
             ClassInjector.DerivedConstructorBody(this);
-            enumerator = _enumerator ?? throw new NullReferenceException("routine is null");;
+            enumerator = _enumerator ?? throw new NullReferenceException("routine is null"); ;
         }
 
         public Il2CppSystem.Object /*IEnumerator.*/Current
         {
             get => enumerator.Current switch
-                {
-                    IEnumerator next => new MonoEnumeratorWrapper(next),
-                    Il2CppSystem.Object il2cppObject => il2cppObject,
-                    null => null,
-                    _ => throw new NotSupportedException($"{enumerator.GetType()}: Unsupported type {enumerator.Current.GetType()}"),
-                };
+            {
+                IEnumerator next => new MonoEnumeratorWrapper(next),
+                Il2CppSystem.Object il2cppObject => il2cppObject,
+                null => null,
+                _ => throw new NotSupportedException($"{enumerator.GetType()}: Unsupported type {enumerator.Current.GetType()}"),
+            };
         }
 
         public bool MoveNext()
@@ -37,7 +37,8 @@ namespace MelonLoader.Support
             try
             {
                 return enumerator.MoveNext();
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 var melon = MelonUtils.GetMelonFromStackTrace(new System.Diagnostics.StackTrace(e), true);
 
@@ -49,7 +50,7 @@ namespace MelonLoader.Support
                 return false;
             }
         }
-        
+
         public void Reset() => enumerator.Reset();
     }
 }

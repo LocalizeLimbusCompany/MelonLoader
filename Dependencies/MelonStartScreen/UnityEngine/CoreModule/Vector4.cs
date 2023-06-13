@@ -20,6 +20,6 @@ namespace MelonUnityEngine
             InternalClassPointerStore<Vector4>.NativeClassPtr = UnityInternals.GetClass("UnityEngine.CoreModule.dll", "UnityEngine", "Vector4");
         }
 
-        public static explicit operator Vector2(Vector4 src) => new Vector2(src.x, src.y);
+        public static explicit operator Vector2(Vector4 src) => new(src.x, src.y);
     }
 }

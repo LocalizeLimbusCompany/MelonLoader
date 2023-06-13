@@ -21,8 +21,7 @@ namespace MelonLoader.MelonStartScreen.UI.Objects
             }
             catch { }
 
-            if (font == null)
-                font = MelonUnityEngine.Resources.GetBuiltinResource<Font>("Arial.ttf");
+            font ??= MelonUnityEngine.Resources.GetBuiltinResource<Font>("Arial.ttf");
 
             AllElements.Add(this);
         }
@@ -56,7 +55,7 @@ namespace MelonLoader.MelonStartScreen.UI.Objects
                 mesh = null;
             }
 
-            TextGenerationSettings settings = new TextGenerationSettings();
+            TextGenerationSettings settings = new();
             settings.generationExtents = new Vector2(540, 47.5f);
             settings.pivot = new Vector2(0.5f, 0.5f);
             settings.verticalOverflow = VerticalWrapMode.Overflow;

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace MelonLoader.Utils
 {
@@ -107,11 +106,11 @@ namespace MelonLoader.Utils
         {
             //Need to hook wsock32 gethostbyname
             //And, if on x64, ws2_32 getaddrinfo
-            
+
             //TODO: is this doable on Unix?
             if (MelonUtils.IsMac || MelonUtils.IsUnix || MelonUtils.IsUnderWineOrSteamProton())
                 return;
-            
+
             MelonDebug.Msg("Initializing Analytics Blocker...");
 
             wsock32 = NativeLibrary.LoadLib("wsock32");
@@ -125,14 +124,15 @@ namespace MelonLoader.Utils
 #endif
 
             MelonDebug.Msg($"Hooking wsock32::gethostbyname (0x{ghbnPtr.ToInt64():X})...");
-            MelonUtils.NativeHookAttachDirect((IntPtr) (&ghbnPtr), (IntPtr) detourPtr);
+            MelonUtils.NativeHookAttachDirect((IntPtr)(&ghbnPtr), (IntPtr)detourPtr);
 
             original_gethostbyname = (gethostbyname_delegate)Marshal.GetDelegateForFunctionPointer(ghbnPtr, typeof(gethostbyname_delegate));
 
             if (MelonUtils.IsGame32Bit())
             {
                 ws2_32 = IntPtr.Zero;
-            } else 
+            }
+            else
             {
                 ws2_32 = NativeLibrary.LoadLib("ws2_32");
 
@@ -145,7 +145,7 @@ namespace MelonLoader.Utils
 #else
                 var detourPtr2 = Marshal.GetFunctionPointerForDelegate((getaddrinfo_delegate)getaddrinfo_hook);
 #endif
-                MelonUtils.NativeHookAttachDirect((IntPtr) (&gaiPtr), (IntPtr)detourPtr2);
+                MelonUtils.NativeHookAttachDirect((IntPtr)(&gaiPtr), (IntPtr)detourPtr2);
 
                 original_getaddrinfo = (getaddrinfo_delegate)Marshal.GetDelegateForFunctionPointer(gaiPtr, typeof(getaddrinfo_delegate));
             }
@@ -156,23 +156,24 @@ namespace MelonLoader.Utils
 #endif
         private static hostent* gethostbyname_hook(byte* name)
         {
-            if (name == null || (IntPtr) name == IntPtr.Zero)
+            if (name == null || (IntPtr)name == IntPtr.Zero)
                 return original_gethostbyname(name);
 
             var hostname = Marshal.PtrToStringAnsi((IntPtr)name);
 
             var shouldBlock = CheckShouldBlock(hostname);
             if (shouldBlock)
-                name = (byte*) Marshal.StringToHGlobalAnsi("localhost");
+                name = (byte*)Marshal.StringToHGlobalAnsi("localhost");
 
             hostent* ret;
             try
             {
                 ret = original_gethostbyname(name);
-            } catch
+            }
+            catch
             {
                 WSASetLastError(WSA_TRYAGAIN);
-                ret = (hostent*) IntPtr.Zero;
+                ret = (hostent*)IntPtr.Zero;
             }
 
             if (shouldBlock)
@@ -186,7 +187,7 @@ namespace MelonLoader.Utils
 #endif
         private static int getaddrinfo_hook(byte* pNodeName, byte* pServiceName, addrinfo* pHints, addrinfo** ppResult)
         {
-            if (pNodeName == null || (IntPtr) pNodeName == IntPtr.Zero)
+            if (pNodeName == null || (IntPtr)pNodeName == IntPtr.Zero)
                 return original_getaddrinfo(pNodeName, pServiceName, pHints, ppResult);
 
             var hostname = Marshal.PtrToStringAnsi((IntPtr)pNodeName);

@@ -1,6 +1,6 @@
 ﻿using System;
-using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 #if SM_Il2Cpp
 using UnityEngine.Events;
 #endif
@@ -16,18 +16,18 @@ namespace MelonLoader.Support
             internal bool wasLoadedThisTick;
         }
 
-        private static Queue<SceneInitEvent> scenesLoaded = new Queue<SceneInitEvent>();
+        private static Queue<SceneInitEvent> scenesLoaded = new();
 
         internal static void Init()
         {
             try
             {
 #if SM_Il2Cpp
-                SceneManager.sceneLoaded = (
-                    (ReferenceEquals(SceneManager.sceneLoaded, null))
+                SceneManager.sceneLoaded = 
+                    ReferenceEquals(SceneManager.sceneLoaded, null)
                     ? new Action<Scene, LoadSceneMode>(OnSceneLoad)
                     : Il2CppSystem.Delegate.Combine(SceneManager.sceneLoaded, (UnityAction<Scene, LoadSceneMode>)new Action<Scene, LoadSceneMode>(OnSceneLoad)).Cast<UnityAction<Scene, LoadSceneMode>>()
-                    );
+                    ;
 #else
                 SceneManager.sceneLoaded += OnSceneLoad;
 #endif
@@ -37,11 +37,11 @@ namespace MelonLoader.Support
             try
             {
 #if SM_Il2Cpp
-                SceneManager.sceneUnloaded = (
-                    (ReferenceEquals(SceneManager.sceneUnloaded, null))
+                SceneManager.sceneUnloaded = 
+                    ReferenceEquals(SceneManager.sceneUnloaded, null)
                     ? new Action<Scene>(OnSceneUnload)
                     : Il2CppSystem.Delegate.Combine(SceneManager.sceneUnloaded, (UnityAction<Scene>)new Action<Scene>(OnSceneUnload)).Cast<UnityAction<Scene>>()
-                    );
+                    ;
 #else
                 SceneManager.sceneUnloaded += OnSceneUnload;
 #endif
@@ -73,8 +73,8 @@ namespace MelonLoader.Support
         {
             if (scenesLoaded.Count > 0)
             {
-                Queue<SceneInitEvent> requeue = new Queue<SceneInitEvent>();
-                SceneInitEvent evt = null;
+                Queue<SceneInitEvent> requeue = new();
+                SceneInitEvent evt;
                 while ((scenesLoaded.Count > 0) && ((evt = scenesLoaded.Dequeue()) != null))
                 {
                     if (evt.wasLoadedThisTick)

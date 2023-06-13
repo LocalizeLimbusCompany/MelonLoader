@@ -1,7 +1,6 @@
 ﻿using MelonLoader.Modules;
 using MelonLoader.NativeUtils;
 using System;
-using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
 

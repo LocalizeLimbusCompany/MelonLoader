@@ -33,31 +33,9 @@ jobs:
           # Target triple to install for this toolchain
           targets: i686-pc-windows-msvc, x86_64-pc-windows-msvc
         # Build Rust Release
-      - name: Build Rust Release | Windows - x86
-        shell: cmd
-        run: cargo +nightly build --target i686-pc-windows-msvc --release
       - name: Build Rust Release | Windows - x64
         shell: cmd
         run: cargo +nightly build --target x86_64-pc-windows-msvc --release
-        # Build Rust Debug
-      - name: Build Rust Debug | Windows - x86
-        shell: cmd
-        run: cargo +nightly build --target i686-pc-windows-msvc
-      - name: Build Rust Debug | Windows - x64
-        shell: cmd
-        run: cargo +nightly build --target x86_64-pc-windows-msvc
-        # Upload Proxy Release - x86
-      - name: Upload Proxy Release | Windows x86
-        uses: actions/upload-artifact@v3
-        with:
-          name: MLProxyX86-Windows-Release
-          path: target/i686-pc-windows-msvc/release/version.dll
-        # Upload Bootstrap Release - x86
-      - name: Upload Bootstrap Release | Windows x86
-        uses: actions/upload-artifact@v3
-        with:
-          name: MLBootstrapX86-Windows-Release
-          path: target/i686-pc-windows-msvc/release/Bootstrap.dll
         # Upload Proxy Release - x64
       - name: Upload Proxy Release | Windows x64
         uses: actions/upload-artifact@v3
@@ -70,30 +48,6 @@ jobs:
         with:
           name: MLBootstrapX64-Windows-Release
           path: target/x86_64-pc-windows-msvc/release/Bootstrap.dll
-        # Upload Proxy Debug - x86
-      - name: Upload Proxy Debug | Windows x86
-        uses: actions/upload-artifact@v3
-        with:
-          name: MLProxyX86-Windows-Debug
-          path: target/i686-pc-windows-msvc/debug/version.dll
-        # Upload Bootstrap Debug - x86
-      - name: Upload Bootstrap Debug | Windows x86
-        uses: actions/upload-artifact@v3
-        with:
-          name: MLBootstrapX86-Windows-Debug
-          path: target/i686-pc-windows-msvc/debug/Bootstrap.dll
-        # Upload Proxy Debug - x64
-      - name: Upload Proxy Debug | Windows x64
-        uses: actions/upload-artifact@v3
-        with:
-          name: MLProxyX64-Windows-Debug
-          path: target/x86_64-pc-windows-msvc/debug/version.dll
-        # Upload Bootstrap Debug - x64
-      - name: Upload Bootstrap Debug | Windows x64
-        uses: actions/upload-artifact@v3
-        with:
-          name: MLBootstrapX64-Windows-Debug
-          path: target/x86_64-pc-windows-msvc/debug/Bootstrap.dll
   finalize_x64_release_zip_windows:
     runs-on: windows-latest
     needs: [build_core_release, build_rust_windows]
@@ -135,10 +89,6 @@ jobs:
         with:
           name: MelonLoader.Windows.x64.CI.Release
           path: ./Output/Release/x64/*
-  cleanup_artifacts:
-    runs-on: windows-latest
-    needs: [ finalize_x64_release_zip_windows ]
-    steps:
       - uses: GeekyEggo/delete-artifact@v2.0.0
         with:
           name: |

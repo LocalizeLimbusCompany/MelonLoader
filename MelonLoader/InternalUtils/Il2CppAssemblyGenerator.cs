@@ -2,8 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.CompilerServices;
-using MelonLoader.Utils;
+
 
 namespace MelonLoader.InternalUtils
 {
@@ -26,7 +25,7 @@ namespace MelonLoader.InternalUtils
                 BootstrapInterop.DisableCloseButton(windowHandle);
             }
             var ret = module.SendMessage("Run");
-            
+
             if (MelonUtils.IsWindows)
             {
                 IntPtr windowHandle = Process.GetCurrentProcess().MainWindowHandle;

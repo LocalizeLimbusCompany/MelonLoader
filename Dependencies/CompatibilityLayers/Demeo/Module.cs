@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
-using Boardgame.Modding;
-using Prototyping;
+﻿using Boardgame.Modding;
 using MelonLoader.Modules;
+using Prototyping;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace MelonLoader.CompatibilityLayers
 {

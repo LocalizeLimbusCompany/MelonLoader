@@ -1,5 +1,5 @@
-using System.Diagnostics;
 using MelonLoader;
+using System.Diagnostics;
 
 namespace ModHelper
 {

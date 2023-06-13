@@ -1,8 +1,8 @@
 ﻿using MelonLoader.MelonStartScreen.NativeUtils;
 using MelonLoader.MelonStartScreen.UI;
+using MelonUnityEngine.CoreModule;
 using System;
 using System.Reflection;
-using MelonUnityEngine.CoreModule;
 using UnityPlayer;
 
 namespace MelonLoader.MelonStartScreen
@@ -11,7 +11,7 @@ namespace MelonLoader.MelonStartScreen
     {
         private const float logoRatio = 1.2353f;
 
-        private delegate void SetupPixelCorrectCoordinates(bool param_1); 
+        private delegate void SetupPixelCorrectCoordinates(bool param_1);
 
 #pragma warning disable 0649
         #region m_SetupPixelCorrectCoordinates Signatures

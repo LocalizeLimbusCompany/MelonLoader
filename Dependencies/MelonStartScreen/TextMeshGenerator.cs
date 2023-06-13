@@ -1,6 +1,6 @@
-﻿using System;
+﻿using MelonUnityEngine;
+using System;
 using System.Linq;
-using MelonUnityEngine;
 
 namespace MelonLoader.MelonStartScreen
 {
@@ -8,15 +8,16 @@ namespace MelonLoader.MelonStartScreen
     {
         public static Mesh Generate(string text, TextGenerationSettings settings)
         {
-            TextGenerator generator = new TextGenerator();
+            TextGenerator generator = new();
             generator.Populate(text, settings);
 
-            Mesh mesh = new Mesh();
+            Mesh mesh = new();
             UIVertexWrapper[] vertices = generator.GetVerticesArray();
             Vector3[] verticesPosition = vertices.Select(v => v.position).ToArray();
             mesh.vertices = verticesPosition;
             if (GL.sRGBWrite)
-                mesh.colors = vertices.Select(v => {
+                mesh.colors = vertices.Select(v =>
+                {
                     Color color = v.color;
                     color.r = (float)Math.Pow(color.r, 2.2);
                     color.g = (float)Math.Pow(color.g, 2.2);

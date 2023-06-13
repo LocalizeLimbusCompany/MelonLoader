@@ -1,10 +1,10 @@
-﻿using System;
+﻿using MelonLoader.Utils;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using MelonLoader.Utils;
 
 namespace MelonLoader
 {
@@ -26,7 +26,7 @@ namespace MelonLoader
         {
             if (!Directory.Exists(MelonEnvironment.PluginsDirectory))
                 Directory.CreateDirectory(MelonEnvironment.PluginsDirectory);
-            
+
             if (!Directory.Exists(MelonEnvironment.ModsDirectory))
                 Directory.CreateDirectory(MelonEnvironment.ModsDirectory);
         }
@@ -87,7 +87,7 @@ namespace MelonLoader
 
             var count = MelonTypeBase<T>._registeredMelons.Count;
             MelonLogger.Msg($"{count} {MelonTypeBase<T>.TypeName.MakePlural(count)} loaded.");
-            if (firstSpacer || (typeof(T) ==  typeof(MelonMod)))
+            if (firstSpacer || (typeof(T) == typeof(MelonMod)))
                 MelonLogger.WriteSpacer();
             firstSpacer = true;
         }

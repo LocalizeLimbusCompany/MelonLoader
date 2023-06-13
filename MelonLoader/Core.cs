@@ -1,13 +1,13 @@
-﻿using System;
-using System.Diagnostics;
-using System.Reflection;
-using System.Security;
+﻿using bHapticsLib;
 using MelonLoader.InternalUtils;
 using MelonLoader.MonoInternals;
 using MelonLoader.Utils;
+using System;
+using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
-using bHapticsLib;
+using System.Security;
 
 #if NET6_0
 using System.Threading;
@@ -17,10 +17,10 @@ using MelonLoader.CoreClrUtils;
 
 namespace MelonLoader
 {
-	internal static class Core
+    internal static class Core
     {
         internal static HarmonyLib.Harmony HarmonyInstance;
-        
+
         internal static bool Is_ALPHA_PreRelease = false;
 
         internal static NativeLibrary.StringDelegate WineGetVersion;
@@ -41,11 +41,11 @@ namespace MelonLoader
             var runtimeDirInfo = new DirectoryInfo(runtimeFolder);
             MelonEnvironment.MelonLoaderDirectory = runtimeDirInfo.Parent!.FullName;
             MelonEnvironment.GameRootDirectory = Path.GetDirectoryName(MelonEnvironment.GameExecutablePath);
-            
+
 #if NET6_0
             Environment.SetEnvironmentVariable("IL2CPP_INTEROP_DATABASES_LOCATION", MelonEnvironment.Il2CppAssembliesDirectory);
 #endif
-            
+
             SetupWineCheck();
             Utils.MelonConsole.Init();
 
@@ -57,7 +57,7 @@ namespace MelonLoader
             Fixes.DotnetLoadFromManagedFolderFix.Install();
             Fixes.UnhandledException.Install(AppDomain.CurrentDomain);
             Fixes.ServerCertificateValidation.Install();
-            
+
             MelonUtils.Setup(AppDomain.CurrentDomain);
 
             Assertions.LemonAssertMapping.Setup();
@@ -74,10 +74,10 @@ namespace MelonLoader
             }
 
             HarmonyInstance = new HarmonyLib.Harmony(BuildInfo.Name);
-            
+
 #if NET6_0
             // if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                // NativeStackWalk.LogNativeStackTrace();
+            // NativeStackWalk.LogNativeStackTrace();
 
             Fixes.DotnetAssemblyLoadContextFix.Install();
             Fixes.DotnetModHandlerRedirectionFix.Install();
@@ -127,16 +127,13 @@ namespace MelonLoader
 
             return 0;
         }
-        
+
         internal static string GetVersionString()
         {
-            var lemon = MelonLaunchOptions.Console.Mode == MelonLaunchOptions.Console.DisplayMode.LEMON;
-            var versionStr = $"{(lemon ? "Lemon" : "Melon")}Loader " +
-                             $"v{BuildInfo.Version} " +
-                             $"{(Is_ALPHA_PreRelease ? "ALPHA Pre-Release" : "Open-Beta")}";
+            var versionStr = $"MelonLoader v{BuildInfo.Version} Open-LLCBeta";
             return versionStr;
         }
-        
+
         internal static void WelcomeMessage()
         {
             //if (MelonDebug.IsEnabled())
@@ -158,7 +155,7 @@ namespace MelonLoader
 
         [DllImport("ntdll.dll", SetLastError = true)]
         internal static extern uint RtlGetVersion(out OsVersionInfo versionInformation); // return type should be the NtStatus enum
-        
+
         [StructLayout(LayoutKind.Sequential)]
         internal struct OsVersionInfo
         {
@@ -174,12 +171,12 @@ namespace MelonLoader
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
             internal readonly string CSDVersion;
         }
-        
+
         internal static string GetOSVersion()
         {
             if (MelonUtils.IsUnix || MelonUtils.IsMac)
                 return Environment.OSVersion.VersionString;
-            
+
             if (MelonUtils.IsUnderWineOrSteamProton())
                 return $"Wine {WineGetVersion()}";
             RtlGetVersion(out OsVersionInfo versionInformation);
@@ -224,11 +221,11 @@ namespace MelonLoader
 
             return $"{versionString}";
         }
-        
+
         internal static void Quit()
         {
             MelonDebug.Msg("[ML Core] Received Quit from Support Module. Shutting down...");
-            
+
             MelonPreferences.Save();
 
             HarmonyInstance.UnpatchSelf();
@@ -236,18 +233,18 @@ namespace MelonLoader
 
             MelonLogger.Flush();
             //MelonLogger.Close();
-            
+
             System.Threading.Thread.Sleep(200);
 
             if (MelonLaunchOptions.Core.QuitFix)
                 Process.GetCurrentProcess().Kill();
         }
-        
+
         private static void SetupWineCheck()
         {
             if (MelonUtils.IsUnix || MelonUtils.IsMac)
                 return;
-            
+
             IntPtr dll = NativeLibrary.LoadLib("ntdll.dll");
             IntPtr wine_get_version_proc = NativeLibrary.AgnosticGetProcAddress(dll, "wine_get_version");
             if (wine_get_version_proc == IntPtr.Zero)

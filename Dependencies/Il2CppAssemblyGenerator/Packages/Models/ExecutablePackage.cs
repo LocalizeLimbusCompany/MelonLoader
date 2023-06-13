@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -41,21 +40,21 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages.Models
                 ResetEvent_Output = new AutoResetEvent(false);
                 ResetEvent_Error = new AutoResetEvent(false);
 
-                ProcessStartInfo processStartInfo = new ProcessStartInfo($"\"{ExeFilePath.Replace("\"", "\\\"")}\"", // Replacing double quotes for Linux
+                ProcessStartInfo processStartInfo = new($"\"{ExeFilePath.Replace("\"", "\\\"")}\"", // Replacing double quotes for Linux
                     parenthesize_args
                     ?
                     string.Join(" ", args.Where(s => !string.IsNullOrEmpty(s)).Select(it => "\"" + Regex.Replace(it, @"(\\+)$", @"$1$1") + "\""))
                     :
                     string.Join(" ", args.Where(s => !string.IsNullOrEmpty(s)).Select(it => Regex.Replace(it, @"(\\+)$", @"$1$1"))));
-                
+
                 //but maybe consider, no
-                
+
                 processStartInfo = new ProcessStartInfo(ExeFilePath, parenthesize_args
                     ?
                     string.Join(" ", args.Where(s => !string.IsNullOrEmpty(s)).Select(it => "\"" + Regex.Replace(it, @"(\\+)$", @"$1$1") + "\""))
                     :
                     string.Join(" ", args.Where(s => !string.IsNullOrEmpty(s)).Select(it => Regex.Replace(it, @"(\\+)$", @"$1$1"))));
-                
+
                 processStartInfo.UseShellExecute = false;
                 processStartInfo.RedirectStandardOutput = true;
                 processStartInfo.RedirectStandardError = true;
@@ -72,7 +71,7 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages.Models
 
                 Core.Logger.Msg("\"" + ExeFilePath + "\" " + processStartInfo.Arguments);
 
-                Process process = new Process();
+                Process process = new();
                 process.StartInfo = processStartInfo;
                 process.OutputDataReceived += OutputStream;
                 process.ErrorDataReceived += ErrorStream;
@@ -101,7 +100,7 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages.Models
 
         private static void OutputStream(object sender, DataReceivedEventArgs e) { if (e.Data == null) ResetEvent_Output.Set(); else Core.Logger.Msg(e.Data); }
         private static void ErrorStream(object sender, DataReceivedEventArgs e) { if (e.Data == null) ResetEvent_Error.Set(); else Core.Logger.Error(e.Data); }
-        
+
         private static void SetProcessId(int id)
         {
             MelonLogger.Warning($"TODO: SetProcessId({id})");

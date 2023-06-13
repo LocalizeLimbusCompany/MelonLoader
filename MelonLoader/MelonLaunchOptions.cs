@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 
 namespace MelonLoader
 {
@@ -60,7 +59,7 @@ namespace MelonLoader
                 return;
         }
 
-#region Args
+        #region Args
         public static class AnalyticsBlocker
         {
             public static bool ShouldDAB { get; internal set; }

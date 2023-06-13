@@ -1,6 +1,6 @@
-﻿using System;
+﻿using MelonLoader.Support.Preferences;
+using System;
 using System.Reflection;
-using MelonLoader.Support.Preferences;
 using UnityEngine;
 
 namespace MelonLoader.Support

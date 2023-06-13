@@ -85,7 +85,10 @@ namespace MelonLoader
         [Obsolete()]
         private MelonModGameAttribute[] _LegacyGameAttributes = null;
         [Obsolete("Use MelonBase.Games instead.")]
-        public MelonModGameAttribute[] GameAttributes { get {
+        public MelonModGameAttribute[] GameAttributes
+        {
+            get
+            {
                 if (_LegacyGameAttributes != null)
                     return _LegacyGameAttributes;
                 List<MelonModGameAttribute> newatts = new();
@@ -93,7 +96,8 @@ namespace MelonLoader
                     newatts.Add(new MelonModGameAttribute(att.Developer, att.Name));
                 _LegacyGameAttributes = newatts.ToArray();
                 return _LegacyGameAttributes;
-            } }
+            }
+        }
 
         #endregion
     }

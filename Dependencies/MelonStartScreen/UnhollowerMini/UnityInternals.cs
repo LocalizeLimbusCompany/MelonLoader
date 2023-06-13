@@ -12,7 +12,7 @@ namespace UnhollowerMini
         private delegate void delegate_gfunc_mono_assembly_foreach(IntPtr assembly, IntPtr user_data);
 
         private static readonly IntPtr domain;
-        private static readonly List<InternalAssembly> assemblies = new List<InternalAssembly>();
+        private static readonly List<InternalAssembly> assemblies = new();
 
         private static readonly uint monoClassOffset = 0;
 
@@ -48,7 +48,7 @@ namespace UnhollowerMini
                 else
                     throw new Exception("Failed to find MonoClass name offset");
 
-                MelonDebug.Msg("monoClassOffset? "  + monoClassOffset);
+                MelonDebug.Msg("monoClassOffset? " + monoClassOffset);
             }
         }
 
@@ -198,7 +198,7 @@ namespace UnhollowerMini
             }
             else
             {
-                
+
                 IntPtr iter = IntPtr.Zero;
                 IntPtr element;
                 while ((element = mono_class_get_methods(clazz, ref iter)) != IntPtr.Zero)
@@ -410,7 +410,7 @@ namespace UnhollowerMini
             public MonoClass* nested_in; // 0x28 // Should always be null
 
             //public IntPtr cattrs; // 0x2C
-            
+
             //
             // Starting here (unity version from 2014+), fields will be offset by IntPtr.Size
             //
@@ -632,7 +632,7 @@ namespace UnhollowerMini
         private static extern uint il2cpp_array_length(IntPtr array);
         [DllImport("GameAssembly", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern IntPtr il2cpp_array_new(IntPtr elementTypeInfo, ulong length);
-        
+
         [DllImport("GameAssembly", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern IntPtr il2cpp_assembly_get_image(IntPtr assembly);
         [DllImport("GameAssembly", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]

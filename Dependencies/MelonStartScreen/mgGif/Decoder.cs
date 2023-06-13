@@ -1,7 +1,7 @@
-﻿using System;
-using System.Text;
+﻿using MelonLoader;
 using MelonUnityEngine;
-using MelonLoader;
+using System;
+using System.Text;
 
 namespace mgGif
 {
@@ -70,7 +70,7 @@ namespace mgGif
         private ushort TransparentIndex;
 
         // current image
-        private Image Image = new Image();
+        private Image Image = new();
 
         private ushort ImageLeft;
         private ushort ImageTop;
@@ -524,7 +524,7 @@ namespace mgGif
                 }
                 else
                     continue;
-                
+
                 // output colours
 
                 var codeLength = Codes[codePos++];

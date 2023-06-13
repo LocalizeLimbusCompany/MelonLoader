@@ -70,13 +70,13 @@ namespace MelonLoader.Support
 
             if (methodDetourPointer != IntPtr.Zero)
                 MelonUtils.NativeHookDetach(copiedMethodInfoPointer, methodDetourPointer);
-            
+
             MelonUtils.NativeHookAttachDirect(copiedMethodInfoPointer, il2CppShimDelegatePtr);
 
 #if NET6_0
             NativeStackWalk.RegisterHookAddr((ulong)il2CppShimDelegatePtr, $"Harmony Hook for {Original.FullDescription()}");
 #endif
-            
+
             methodDetourPointer = il2CppShimDelegatePtr;
 
             PatchTools_RememberObject(Original, new LemonTuple<MethodInfo, MethodInfo, Delegate> { Item1 = newreplacement, Item2 = il2CppShim, Item3 = il2CppShimDelegate });
@@ -88,8 +88,8 @@ namespace MelonLoader.Support
         {
             DynamicMethodDefinition method = Original.ToNewDynamicMethodDefinition();
             method.Definition.Name += "_wrapper";
-            ILContext ilcontext = new ILContext(method.Definition);
-            ILCursor ilcursor = new ILCursor(ilcontext);
+            ILContext ilcontext = new(method.Definition);
+            ILCursor ilcursor = new(ilcontext);
             FieldReference tempfieldreference = null;
             if (ilcursor.TryGotoNext(x => x.MatchLdsfld(out tempfieldreference), x => x.MatchCall(typeof(IL2CPP), "il2cpp_object_get_virtual_method")))
             {
@@ -164,7 +164,7 @@ namespace MelonLoader.Support
             il.Emit(OpCodes.Stloc, exceptionLocal);
             il.Emit(OpCodes.Ldstr, $"Exception in Harmony patch of method {Original.FullDescription()}:\n");
             il.Emit(OpCodes.Ldloc, exceptionLocal);
-            il.Emit(OpCodes.Call, AccessTools.DeclaredMethod(typeof(Exception), "ToString", new Type[0]));
+            il.Emit(OpCodes.Call, AccessTools.DeclaredMethod(typeof(Exception), "ToString", Array.Empty<Type>()));
             il.Emit(OpCodes.Call, AccessTools.DeclaredMethod(typeof(string), "Concat", new Type[] { typeof(string), typeof(string) }));
             il.Emit(OpCodes.Call, AccessTools.DeclaredMethod(typeof(MelonLogger), "Error", new Type[] { typeof(string) }));
 
@@ -314,10 +314,10 @@ namespace MelonLoader.Support
 
             PatchInfo patchInfo = Original.GetPatchInfo();
 
-            Patch basePatch = patchInfo.prefixes.Count() > 0 ? patchInfo.prefixes.First()
-                : patchInfo.postfixes.Count() > 0 ? patchInfo.postfixes.First()
-                : patchInfo.transpilers.Count() > 0 ? patchInfo.transpilers.First()
-                : patchInfo.finalizers.Count() > 0 ? patchInfo.finalizers.First() : null;
+            Patch basePatch = patchInfo.prefixes.Length > 0 ? patchInfo.prefixes.First()
+                : patchInfo.postfixes.Length > 0 ? patchInfo.postfixes.First()
+                : patchInfo.transpilers.Length > 0 ? patchInfo.transpilers.First()
+                : patchInfo.finalizers.Length > 0 ? patchInfo.finalizers.First() : null;
 
             MelonLogger.Instance loggerInstance = FindMelon(melon => basePatch != null && melon.HarmonyInstance.Id.Equals(basePatch.owner));
             if (loggerInstance == null && basePatch != null)

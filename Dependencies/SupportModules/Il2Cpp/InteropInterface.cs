@@ -3,7 +3,6 @@ using Il2CppInterop.Common.Attributes;
 using Il2CppInterop.Runtime;
 using Il2CppInterop.Runtime.Injection;
 using Il2CppInterop.Runtime.InteropTypes;
-using Il2CppInterop.Runtime.Runtime;
 using System;
 using System.Reflection;
 
@@ -13,7 +12,7 @@ namespace MelonLoader.Support
     {
         public IntPtr CopyMethodInfoStruct(IntPtr ptr)
             => ptr;
-            //=> UnityVersionHandler.CopyMethodInfoStruct(ptr);
+        //=> UnityVersionHandler.CopyMethodInfoStruct(ptr);
 
         public int? GetIl2CppMethodCallerCount(MethodBase method)
         {

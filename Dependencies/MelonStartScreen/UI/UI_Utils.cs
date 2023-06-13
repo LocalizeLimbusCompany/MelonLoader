@@ -1,6 +1,6 @@
-﻿using System.IO;
+﻿using MelonUnityEngine;
+using System.IO;
 using System.Linq;
-using MelonUnityEngine;
 
 namespace MelonLoader.MelonStartScreen.UI
 {
@@ -8,7 +8,7 @@ namespace MelonLoader.MelonStartScreen.UI
     {
         internal static Texture2D CreateColorTexture(Color color)
         {
-            Texture2D texture = new Texture2D(2, 2);
+            Texture2D texture = new(2, 2);
             texture.SetPixels(new Color[] { color, color, color, color });
             texture.Apply();
             return texture;

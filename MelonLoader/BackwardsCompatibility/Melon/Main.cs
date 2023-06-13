@@ -1,6 +1,6 @@
-﻿using System;
+﻿using MelonLoader.Utils;
+using System;
 using System.Collections.Generic;
-using MelonLoader.Utils;
 
 namespace MelonLoader
 {

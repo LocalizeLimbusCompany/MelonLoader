@@ -1,10 +1,10 @@
 ﻿namespace MelonUnityEngine
 {
-	internal enum FontStyle
-	{
-		Normal,
-		Bold,
-		Italic,
-		BoldAndItalic
-	}
+    internal enum FontStyle
+    {
+        Normal,
+        Bold,
+        Italic,
+        BoldAndItalic
+    }
 }

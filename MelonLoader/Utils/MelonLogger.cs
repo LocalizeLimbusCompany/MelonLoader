@@ -1,5 +1,5 @@
-﻿using MelonLoader.Utils;
-using MelonLoader.Pastel;
+﻿using MelonLoader.Pastel;
+using MelonLoader.Utils;
 using System;
 using System.Drawing;
 using System.IO;
@@ -16,7 +16,7 @@ namespace MelonLoader
 #if !NET6_0
         private static FileStream LogStream = File.Open(Path.Combine(MelonEnvironment.MelonLoaderDirectory, "Latest.log"), FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
 #else
-        internal static FileStream LogStream = File.Open(Path.Combine(MelonEnvironment.MelonLoaderDirectory, "Latest.log"), new FileStreamOptions() { Access = FileAccess.ReadWrite, BufferSize = 0, Mode = FileMode.Create, Share = FileShare.Read});
+        internal static FileStream LogStream = File.Open(Path.Combine(MelonEnvironment.MelonLoaderDirectory, "Latest.log"), new FileStreamOptions() { Access = FileAccess.ReadWrite, BufferSize = 0, Mode = FileMode.Create, Share = FileShare.Read });
 #endif
         internal static StreamWriter LogWriter = CreateLogWriter();
 
@@ -40,7 +40,7 @@ namespace MelonLoader
 
         //Identical to Msg(Color, string) except it skips walking the stack to find a melon
         public static void MsgDirect(Color txt_color, string txt) => NativeMsg(DefaultMelonColor, txt_color, null, txt, true);
-        
+
         public static void Msg(Color txt_color, object obj) => NativeMsg(DefaultMelonColor, txt_color, null, obj.ToString());
         public static void Msg(Color txt_color, string txt) => NativeMsg(DefaultMelonColor, txt_color, null, txt);
         public static void Msg(Color txt_color, string txt, params object[] args) => NativeMsg(DefaultMelonColor, txt_color, null, string.Format(txt, args));
@@ -58,7 +58,7 @@ namespace MelonLoader
 
         public static void WriteLine(int length = 30) => MsgDirect(new string('-', length));
         public static void WriteLine(Color color, int length = 30) => MsgDirect(color, new string('-', length));
-        
+
         private static void NativeMsg(Color namesection_color, Color txt_color, string namesection, string txt, bool skipStackWalk = false)
         {
             if (string.IsNullOrEmpty(namesection))
@@ -151,7 +151,7 @@ namespace MelonLoader
             public void Error(string txt) => NativeError(Name, txt);
             public void Error(string txt, params object[] args) => NativeError(Name, string.Format(txt, args));
             public void Error(string txt, Exception ex) => NativeError(Name, $"{txt}\n{ex}");
-            
+
             public void WriteSpacer() => MelonLogger.WriteSpacer();
             public void WriteLine(int length = 30) => MelonLogger.WriteLine(length);
             public void WriteLine(Color color, int length = 30) => MelonLogger.WriteLine(color, length);
@@ -230,7 +230,8 @@ namespace MelonLoader
             builder.Append(GetTimestamp(false));
             builder.Append($"by {author}".Pastel(authorcolor));
 
-            if (additionalCredits is not null) {
+            if (additionalCredits is not null)
+            {
                 builder.AppendLine();
                 builder.Append(GetTimestamp(false));
                 builder.Append($"Additional credits: {additionalCredits}");

@@ -1,24 +1,23 @@
-﻿using System;
-using System.ComponentModel;
+﻿using Microsoft.Win32.SafeHandles;
+using System;
 using System.IO;
 using System.Runtime.InteropServices;
-using Microsoft.Win32.SafeHandles;
 
 namespace MelonLoader.Utils;
 
 internal static class MelonConsole
 {
     private const int STD_OUTPUT_HANDLE = -11;
-    
+
     internal static IntPtr ConsoleOutHandle = IntPtr.Zero;
     internal static FileStream ConsoleOutStream = null;
     internal static StreamWriter ConsoleOutWriter = null;
-    
+
     internal static void Init()
     {
         if (MelonUtils.IsUnderWineOrSteamProton() || !MelonUtils.IsWindows || MelonLaunchOptions.Console.ShouldHide)
             return;
-        
+
         ConsoleOutHandle = GetStdHandle(STD_OUTPUT_HANDLE);
         ConsoleOutStream = new FileStream(new SafeFileHandle(ConsoleOutHandle, false), FileAccess.Write);
         ConsoleOutWriter = new StreamWriter(ConsoleOutStream);

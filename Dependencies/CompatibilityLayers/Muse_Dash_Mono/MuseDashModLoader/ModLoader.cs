@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using System.Reflection;
 using MelonLoader;
 using ModHelper;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace ModLoader
 {
@@ -9,7 +9,7 @@ namespace ModLoader
     {
         internal static List<IMod> mods = new List<IMod>();
         internal static Dictionary<string, Assembly> depends = new Dictionary<string, Assembly>();
-        
+
         public static void LoadDependency(Assembly assembly)
         {
             foreach (string dependStr in assembly.GetManifestResourceNames())

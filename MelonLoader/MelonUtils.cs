@@ -1,22 +1,22 @@
-﻿using System;
+﻿using AssetsTools.NET;
+using AssetsTools.NET.Extra;
+using HarmonyLib;
+using MelonLoader.InternalUtils;
+using MelonLoader.Lemons.Cryptography;
+using MelonLoader.TinyJSON;
+using MelonLoader.Utils;
+using MonoMod.Cil;
+using MonoMod.Utils;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
-using MonoMod.Cil;
-using MonoMod.Utils;
-using HarmonyLib;
-using MelonLoader.TinyJSON;
-using MelonLoader.InternalUtils;
-using AssetsTools.NET;
-using AssetsTools.NET.Extra;
-using MelonLoader.Lemons.Cryptography;
-using MelonLoader.Utils;
 
 #pragma warning disable 0618
 
@@ -26,16 +26,16 @@ namespace MelonLoader
     {
         private static readonly Random RandomNumGen = new();
         private static readonly MethodInfo StackFrameGetMethod = typeof(StackFrame).GetMethod("GetMethod", BindingFlags.Instance | BindingFlags.Public);
-    
+
         internal static void Setup(AppDomain domain)
         {
-            using (var sha = SHA256.Create()) 
+            using (var sha = SHA256.Create())
                 HashCode = string.Join("", sha.ComputeHash(File.ReadAllBytes(Assembly.GetExecutingAssembly().Location)).Select(b => b.ToString("X")).ToArray());
 
 
             Core.WelcomeMessage();
 
-            if(MelonEnvironment.IsMonoRuntime)
+            if (MelonEnvironment.IsMonoRuntime)
                 SetCurrentDomainBaseDirectory(MelonEnvironment.GameRootDirectory, domain);
 
             if (!Directory.Exists(MelonEnvironment.UserDataDirectory))
@@ -108,9 +108,9 @@ namespace MelonLoader
 
         public static void SetCurrentDomainBaseDirectory(string dirpath, AppDomain domain = null)
         {
-            if(MelonEnvironment.IsDotnetRuntime)
+            if (MelonEnvironment.IsDotnetRuntime)
                 return;
-            
+
             if (domain == null)
                 domain = AppDomain.CurrentDomain;
             try
@@ -255,11 +255,11 @@ namespace MelonLoader
         {
             IEnumerable<Type> returnval = Enumerable.Empty<Type>();
             try { returnval = asm.GetTypes().AsEnumerable(); }
-            catch (ReflectionTypeLoadException ex) 
+            catch (ReflectionTypeLoadException ex)
             {
                 MelonLogger.Error($"Failed to load all types in assembly {asm.FullName} due to: {ex.Message}", ex);
                 //Console.WriteLine(ex);
-                returnval = ex.Types; 
+                returnval = ex.Types;
             }
 
             return returnval.Where(x => (x != null) && (predicate == null || predicate(x)));
@@ -302,8 +302,7 @@ namespace MelonLoader
         {
             if (AppDomainSetup_application_base == null)
                 AppDomainSetup_application_base = typeof(AppDomainSetup).GetField("application_base", BindingFlags.NonPublic | BindingFlags.Instance);
-            if (AppDomainSetup_application_base != null)
-                AppDomainSetup_application_base.SetValue(_this, value);
+            AppDomainSetup_application_base?.SetValue(_this, value);
         }
 
         private static FieldInfo HashAlgorithm_HashSizeValue;
@@ -311,8 +310,7 @@ namespace MelonLoader
         {
             if (HashAlgorithm_HashSizeValue == null)
                 HashAlgorithm_HashSizeValue = typeof(HashAlgorithm).GetField("HashSizeValue", BindingFlags.Public | BindingFlags.Instance);
-            if (HashAlgorithm_HashSizeValue != null)
-                HashAlgorithm_HashSizeValue.SetValue(_this, value);
+            HashAlgorithm_HashSizeValue?.SetValue(_this, value);
         }
 
         // Modified Version of System.IO.Path.HasExtension from .NET Framework's mscorlib.dll
@@ -383,7 +381,7 @@ namespace MelonLoader
         public static string GameVersion { get => UnityInformationHandler.GameVersion; }
 
 
-        #if !NET6_0
+#if !NET6_0
         [MethodImpl(MethodImplOptions.InternalCall)]
         public extern static bool IsGame32Bit();
 #else
@@ -393,7 +391,7 @@ namespace MelonLoader
 
         public static bool IsGameIl2Cpp() => Directory.Exists(MelonEnvironment.Il2CppDataDirectory);
 
-        public static bool IsOldMono() => File.Exists(MelonEnvironment.UnityGameDataDirectory + "\\Mono\\mono.dll") || 
+        public static bool IsOldMono() => File.Exists(MelonEnvironment.UnityGameDataDirectory + "\\Mono\\mono.dll") ||
                                           File.Exists(MelonEnvironment.UnityGameDataDirectory + "\\Mono\\libmono.so");
 
         public static bool IsUnderWineOrSteamProton() => Core.WineGetVersion is not null;

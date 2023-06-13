@@ -63,12 +63,12 @@ namespace MelonLoader
                 case PlatformID.Win32NT:
                 case PlatformID.WinCE:
                     return LoadLibrary(name);
-                
+
                 case PlatformID.Unix:
                 case PlatformID.MacOSX:
                     return dlopen(name, RTLD_NOW);
             }
-            
+
             throw new PlatformNotSupportedException($"Unsupported platform: {platform}");
         }
 
@@ -83,12 +83,12 @@ namespace MelonLoader
                 case PlatformID.Win32NT:
                 case PlatformID.WinCE:
                     return GetProcAddress(hModule, lpProcName);
-                
+
                 case PlatformID.Unix:
                 case PlatformID.MacOSX:
                     return dlsym(hModule, lpProcName);
             }
-            
+
             throw new PlatformNotSupportedException($"Unsupported platform: {platform}");
         }
 
@@ -98,7 +98,7 @@ namespace MelonLoader
         internal static extern IntPtr GetProcAddress(IntPtr hModule, string lpProcName);
         [DllImport("kernel32")]
         internal static extern IntPtr FreeLibrary(IntPtr hModule);
-        
+
         [DllImport("libdl.so.2")]
         protected static extern IntPtr dlopen(string filename, int flags);
 
@@ -106,7 +106,7 @@ namespace MelonLoader
         protected static extern IntPtr dlsym(IntPtr handle, string symbol);
 
         const int RTLD_NOW = 2; // for dlopen's flags 
-        
+
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.LPStr)]
         internal delegate string StringDelegate();

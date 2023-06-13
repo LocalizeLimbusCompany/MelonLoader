@@ -14,7 +14,7 @@ namespace MelonLoader.Fixes
 
         public static bool PreValidateAssembly(Assembly assembly, string requestedSimpleName, ref Assembly __result)
         {
-            if(requestedSimpleName.Contains("MelonLoader.ModHandler"))
+            if (requestedSimpleName.Contains("MelonLoader.ModHandler"))
             {
                 __result = assembly;
                 return false; //Don't validate the name. What could go wrong?

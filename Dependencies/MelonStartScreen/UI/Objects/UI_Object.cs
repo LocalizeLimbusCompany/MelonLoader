@@ -5,7 +5,7 @@ namespace MelonLoader.MelonStartScreen.UI.Objects
 {
     internal abstract class UI_Object : IDisposable
     {
-        internal static List<UI_Object> AllElements = new List<UI_Object>();
+        internal static List<UI_Object> AllElements = new();
         private bool disposedValue;
 
         internal virtual void Dispose() { }

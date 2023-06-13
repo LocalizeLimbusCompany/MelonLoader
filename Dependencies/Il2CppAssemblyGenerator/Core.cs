@@ -1,10 +1,8 @@
-﻿using System;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using MelonLoader.Il2CppAssemblyGenerator.Packages;
+﻿using MelonLoader.Il2CppAssemblyGenerator.Packages;
 using MelonLoader.Modules;
 using MelonLoader.Utils;
+using System.IO;
+using System.Net.Http;
 
 namespace MelonLoader.Il2CppAssemblyGenerator
 {
@@ -36,15 +34,15 @@ namespace MelonLoader.Il2CppAssemblyGenerator
             AssemblyGenerationNeeded = MelonLaunchOptions.Il2CppAssemblyGenerator.ForceRegeneration;
 
             string gameAssemblyName = "GameAssembly";
-            
+
             if (MelonUtils.IsUnix)
-                gameAssemblyName += ".so"; 
+                gameAssemblyName += ".so";
             if (MelonUtils.IsWindows)
                 gameAssemblyName += ".dll";
             if (MelonUtils.IsMac)
                 gameAssemblyName += ".dylib";
 
-                GameAssemblyPath = Path.Combine(MelonEnvironment.GameRootDirectory, gameAssemblyName);
+            GameAssemblyPath = Path.Combine(MelonEnvironment.GameRootDirectory, gameAssemblyName);
             ManagedPath = MelonEnvironment.MelonManagedDirectory;
 
             BasePath = Path.GetDirectoryName(Assembly.Location);

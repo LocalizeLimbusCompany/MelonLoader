@@ -1,8 +1,8 @@
-﻿using System;
+﻿using MelonLoader.Preferences;
+using MelonLoader.Utils;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using MelonLoader.Preferences;
-using MelonLoader.Utils;
 using Tomlet.Exceptions;
 
 namespace MelonLoader
@@ -237,8 +237,7 @@ namespace MelonLoader
             if (ReflectiveCategories.Count <= 0)
                 return;
             MelonPreferences_ReflectiveCategory category = ReflectiveCategories.Find(x => x.Identifier.Equals(identifier));
-            if (category != null)
-                category.SaveToFile(printmsg);
+            category?.SaveToFile(printmsg);
         }
 
         public static MelonPreferences_Entry GetEntry(string category_identifier, string entry_identifier) => GetCategory(category_identifier)?.GetEntry(entry_identifier);

@@ -93,9 +93,9 @@ namespace MelonLoader.Preferences.IO
             if ((LegacyFilePath != null) && System.IO.File.Exists(LegacyFilePath))
                 System.IO.File.Delete(LegacyFilePath);
         }
-        
+
         private static string QuoteKey(string key) =>
-            key.Contains('"') 
+            key.Contains('"')
                 ? $"'{key}'"
                 : $"\"{key}\"";
 
@@ -103,7 +103,7 @@ namespace MelonLoader.Preferences.IO
         {
             if (!document.ContainsKey(category))
                 document.PutValue(category, new TomlTable());
-            
+
             try
             {
                 var categoryTable = document.GetSubTable(category);

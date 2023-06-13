@@ -1,10 +1,9 @@
-﻿using System.IO;
+﻿using MelonLoader.MelonStartScreen.UI;
 using MelonUnityEngine;
+using System.IO;
 using Tomlet;
 using Tomlet.Attributes;
 using Tomlet.Models;
-using MelonLoader.MelonStartScreen.UI;
-using System;
 
 namespace MelonLoader.MelonStartScreen
 {
@@ -14,9 +13,7 @@ namespace MelonLoader.MelonStartScreen
 
         private static string[] includedThemeIDs =
         {
-            "Default",
-            "Random",
-            "Pumpkin"
+            "LLC"
         };
         internal static bool IsIncludedThemeID() { foreach (var id in includedThemeIDs) if (id.Equals(ThemeID)) return true; return false; }
         internal static string ThemeID = includedThemeIDs[0];
@@ -36,18 +33,12 @@ namespace MelonLoader.MelonStartScreen
 
         internal void Defaults()
         {
-            if (Background == null)
-                Background = CreateCat<cBackground>(nameof(Background), true);
-            if (LogoImage == null)
-                LogoImage = CreateCat<LogoImageSettings>(nameof(LogoImage), true);
-            if (LoadingImage == null)
-                LoadingImage = CreateCat<LoadingImageSettings>(nameof(LoadingImage), true);
-            if (ProgressText == null)
-                ProgressText = CreateCat<ProgressTextSettings>(nameof(ProgressText), true);
-            if (ProgressBar == null)
-                ProgressBar = CreateCat<cProgressBar>(nameof(ProgressBar), true);
-            if (VersionText == null)
-                VersionText = CreateCat<VersionTextSettings>(nameof(VersionText), true);
+            Background ??= CreateCat<cBackground>(nameof(Background), true);
+            LogoImage ??= CreateCat<LogoImageSettings>(nameof(LogoImage), true);
+            LoadingImage ??= CreateCat<LoadingImageSettings>(nameof(LoadingImage), true);
+            ProgressText ??= CreateCat<ProgressTextSettings>(nameof(ProgressText), true);
+            ProgressBar ??= CreateCat<cProgressBar>(nameof(ProgressBar), true);
+            VersionText ??= CreateCat<VersionTextSettings>(nameof(VersionText), true);
         }
 
         internal static void Load()
@@ -62,15 +53,9 @@ namespace MelonLoader.MelonStartScreen
                     .Replace("\\", "")
                     .Replace("/", "");
 
-            if (ThemeID == "Halloween")
-                General.Theme = ThemeID = includedThemeIDs[0];
-
             bool isIncludedID = IsIncludedThemeID();
 
-            if (ThemeID.Equals(includedThemeIDs[1]))
-                ThemePath = UI_Utils.RandomFolder(Core.ThemesFolderPath);
-            else
-                ThemePath = Path.Combine(Core.ThemesFolderPath, ThemeID);
+            ThemePath = Path.Combine(Core.ThemesFolderPath, ThemeID);
 
             if (!isIncludedID && !Directory.Exists(ThemePath))
             {
@@ -81,23 +66,8 @@ namespace MelonLoader.MelonStartScreen
                 ThemePath = Path.Combine(Core.ThemesFolderPath, ThemeID);
             }
 
-            if (isIncludedID && !ThemeID.Equals(includedThemeIDs[1]))
-            {
-                // Lemon
-                IsLemon = (MelonLaunchOptions.Console.Mode == MelonLaunchOptions.Console.DisplayMode.LEMON);
-                if (!IsLemon)
-                {
-                    // Pumpkin
-                    IsPumpkin = ThemeID.Equals(includedThemeIDs[2]);
-                    var nowTime = DateTime.Now;
-                    if ((nowTime.Month == 10)
-                        && (nowTime.Day == 31))
-                        IsPumpkin = true;
-                }
-
-                ThemeID = "Default";
-                ThemePath = Path.Combine(Core.ThemesFolderPath, ThemeID);
-            }
+            if (isIncludedID)
+                ThemePath = Path.Combine(Core.ThemesFolderPath, ThemeID = "LLC");
 
             if (!Directory.Exists(ThemePath))
                 Directory.CreateDirectory(ThemePath);
@@ -105,16 +75,7 @@ namespace MelonLoader.MelonStartScreen
             if (isIncludedID)
                 MelonPreferences.SaveCategory<cGeneral>(nameof(General), false);
 
-            string themeName = (
-                IsPumpkin ? "Pumpkin"
-                : (IsLemon ? "Lemon" : ThemeID));
-
-            Core.Logger.Msg($"Using Start Screen Theme: \"{themeName}\"");
-
-            Instance =
-                IsPumpkin ? new UI.Themes.UI_Theme_Pumpkin()
-                : (IsLemon ? new UI.Themes.UI_Theme_Lemon() 
-                : new UI.Themes.UI_Theme_Default());
+            Instance = new UI.Themes.UI_Theme_LLC();
         }
 
         internal abstract byte[] GetLogoImage();
@@ -131,19 +92,19 @@ namespace MelonLoader.MelonStartScreen
             cat.DestroyFileWatcher();
             return cat.GetValue<T>();
         }
-        
+
         internal class cGeneral
         {
             [TomlPrecedingComment("Toggles the Entire Start Screen  ( true | false )")]
             internal bool Enabled = true;
             [TomlPrecedingComment("Current Theme of the Start Screen")]
-            internal string Theme = "Default";
+            internal string Theme = "LLC";
         }
 
         internal class cBackground : ImageSettings
         {
             [TomlPrecedingComment("Solid RGBA Color of the Background")]
-            internal Color SolidColor = new Color(0.08f, 0.09f, 0.10f);
+            internal Color SolidColor = new(0.08f, 0.09f, 0.10f);
             [TomlPrecedingComment("If it should stretch the Background to the Full Window Size")]
             internal bool StretchToScreen = true;
         }
@@ -172,9 +133,9 @@ namespace MelonLoader.MelonStartScreen
             }
 
             [TomlPrecedingComment("Inner RGBA Color of the Progress Bar")]
-            internal Color InnerColor = new Color(1.00f, 0.23f, 0.42f);
+            internal Color InnerColor = new(1.00f, 0.23f, 0.42f);
             [TomlPrecedingComment("Outer RGBA Color of the Progress Bar")]
-            internal Color OuterColor = new Color(0.47f, 0.97f, 0.39f);
+            internal Color OuterColor = new(0.47f, 0.97f, 0.39f);
         }
 
         internal class VersionTextSettings : TextSettings
@@ -183,8 +144,7 @@ namespace MelonLoader.MelonStartScreen
             public VersionTextSettings() => Defaults();
             public void Defaults()
             {
-                if (Text == null)
-                    Text = $"<loaderName/> v<loaderVersion/> {(Is_ALPHA_PreRelease ? "ALPHA Pre-Release" : "Open-Beta")}";
+                Text ??= $"<loaderName/> v<loaderVersion/> Open-LLCBeta";
                 TextSize = 24;
                 Anchor = UI_Anchor.MiddleCenter;
                 ScreenAnchor = UI_Anchor.MiddleCenter;
@@ -224,9 +184,9 @@ namespace MelonLoader.MelonStartScreen
             internal bool Enabled = true;
 
             [TomlPrecedingComment("Position of the Element")]
-            internal LemonTuple<int, int> Position = new LemonTuple<int, int>();
+            internal LemonTuple<int, int> Position = new();
             [TomlPrecedingComment("Size of the Element")]
-            internal LemonTuple<int, int> Size = new LemonTuple<int, int>();
+            internal LemonTuple<int, int> Size = new();
 
             [TomlPrecedingComment("Anchor of the Text relative to Itself  ( \"None\" | \"UpperLeft\" | \"UpperCenter\" | \"UpperRight\" | \"MiddleLeft\" | \"MiddleCenter\" | \"MiddleRight\" | \"LowerLeft\" | \"LowerCenter\" | \"LowerRight\" )")]
             internal UI_Anchor Anchor = UI_Anchor.UpperLeft;
@@ -249,7 +209,7 @@ namespace MelonLoader.MelonStartScreen
             [TomlPrecedingComment("Scale of Line Spacing of the Text")]
             internal float LineSpacing = 1f;
             [TomlPrecedingComment("RGBA Color of the Text")]
-            internal Color TextColor = new Color(1, 1, 1);
+            internal Color TextColor = new(1, 1, 1);
             [TomlPrecedingComment("Text to be Displayed")]
             internal string Text;
         }
@@ -263,7 +223,7 @@ namespace MelonLoader.MelonStartScreen
             internal FilterMode Filter = FilterMode.Bilinear;
 
             [TomlPrecedingComment("If the Image should attempt to Maintain it's Aspect Ratio")]
-            internal bool MaintainAspectRatio = false;
+            internal bool MaintainAspectRatio = true;
         }
 
         private static Color ReadColor(TomlValue value)

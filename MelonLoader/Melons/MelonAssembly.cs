@@ -1,11 +1,11 @@
-﻿using Semver;
+﻿using MelonLoader.Utils;
+using Semver;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
-using MelonLoader.Utils;
 #if NET6_0
 using System.Runtime.Loader;
 #endif

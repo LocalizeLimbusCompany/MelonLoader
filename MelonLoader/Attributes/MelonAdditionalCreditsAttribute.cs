@@ -1,8 +1,10 @@
 ﻿using System;
 
-namespace MelonLoader {
+namespace MelonLoader
+{
     [AttributeUsage(AttributeTargets.Assembly)]
-    public class MelonAdditionalCreditsAttribute : Attribute {
+    public class MelonAdditionalCreditsAttribute : Attribute
+    {
         /// <summary>
         /// Any additional credits that the mod author might want to include
         /// </summary>
@@ -12,7 +14,8 @@ namespace MelonLoader {
         /// AdditionalCredits constructor
         /// </summary>
         /// <param name="credits">The additional credits of the mod</param>
-        public MelonAdditionalCreditsAttribute(string credits) {
+        public MelonAdditionalCreditsAttribute(string credits)
+        {
             Credits = credits;
         }
     }

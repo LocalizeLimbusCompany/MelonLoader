@@ -36,24 +36,24 @@ namespace MelonUnityEngine
 
 
             f_font = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "font");
-			f_color = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "color");
-			f_fontSize = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "fontSize");
-			f_lineSpacing = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "lineSpacing");
-			f_richText = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "richText");
-			f_scaleFactor = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "scaleFactor");
-			f_fontStyle = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "fontStyle");
-			f_textAnchor = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "textAnchor");
-			//f_alignByGeometry = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "alignByGeometry");
-			//f_resizeTextForBestFit = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "resizeTextForBestFit");
-			//f_resizeTextMinSize = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "resizeTextMinSize");
-			//f_resizeTextMaxSize = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "resizeTextMaxSize");
-			//f_updateBounds = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "updateBounds");
-			f_verticalOverflow = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "verticalOverflow");
-			//f_horizontalOverflow = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "horizontalOverflow");
-			f_generationExtents = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "generationExtents");
-			f_pivot = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "pivot");
-			//f_generateOutOfBounds = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "generateOutOfBounds");
-		}
+            f_color = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "color");
+            f_fontSize = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "fontSize");
+            f_lineSpacing = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "lineSpacing");
+            f_richText = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "richText");
+            f_scaleFactor = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "scaleFactor");
+            f_fontStyle = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "fontStyle");
+            f_textAnchor = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "textAnchor");
+            //f_alignByGeometry = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "alignByGeometry");
+            //f_resizeTextForBestFit = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "resizeTextForBestFit");
+            //f_resizeTextMinSize = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "resizeTextMinSize");
+            //f_resizeTextMaxSize = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "resizeTextMaxSize");
+            //f_updateBounds = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "updateBounds");
+            f_verticalOverflow = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "verticalOverflow");
+            //f_horizontalOverflow = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "horizontalOverflow");
+            f_generationExtents = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "generationExtents");
+            f_pivot = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "pivot");
+            //f_generateOutOfBounds = UnityInternals.GetField(InternalClassPointerStore<TextGenerationSettings>.NativeClassPtr, "generateOutOfBounds");
+        }
 
         public TextGenerationSettings(IntPtr ptr) : base(ptr) { }
 

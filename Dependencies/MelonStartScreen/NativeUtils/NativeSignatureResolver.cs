@@ -1,9 +1,9 @@
-﻿using System;
+﻿using MelonLoader.NativeUtils;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using MelonLoader.NativeUtils;
 
 namespace MelonLoader.MelonStartScreen.NativeUtils
 {

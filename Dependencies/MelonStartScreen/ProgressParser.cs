@@ -25,7 +25,7 @@ namespace MelonLoader.MelonStartScreen
             }
         }
 
-        private static readonly Dictionary<ModLoadStep, string> stepsNames = new Dictionary<ModLoadStep, string>()
+        private static readonly Dictionary<ModLoadStep, string> stepsNames = new()
         {
             { ModLoadStep.LoadMelons, "Loading Melons" },
             { ModLoadStep.InitializeMelons, "Initializing" },

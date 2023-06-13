@@ -1,15 +1,15 @@
-﻿using System;
+﻿using AssetsTools.NET;
+using AssetsTools.NET.Extra;
+using MelonLoader.Utils;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using AssetsTools.NET;
-using AssetsTools.NET.Extra;
 using UnityVersion = AssetRipper.VersionUtilities.UnityVersion;
-using System.Drawing;
-using MelonLoader.Utils;
 
 namespace MelonLoader.InternalUtils
 {
@@ -124,14 +124,13 @@ namespace MelonLoader.InternalUtils
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 if (MelonDebug.IsEnabled())
                     MelonLogger.Error(ex);
                 //MelonLogger.Error("Failed to Initialize Assets Manager!");
             }
-            if (instance != null)
-                instance.file.Close();
+            instance?.file.Close();
         }
 
         private static void ReadGameInfoFallback()

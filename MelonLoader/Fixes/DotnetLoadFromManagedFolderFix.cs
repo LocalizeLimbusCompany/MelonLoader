@@ -17,7 +17,7 @@ namespace MelonLoader.Fixes
         }
 #else
         //TODO Update for non-windows platforms in future, or when updating runtime
-        private static readonly string OurRuntimeDir = Path.Combine(MelonEnvironment.OurRuntimeDirectory, "runtimes", "win", "lib", "net6.0"); 
+        private static readonly string OurRuntimeDir = Path.Combine(MelonEnvironment.OurRuntimeDirectory, "runtimes", "win", "lib", "net6.0");
 
         internal static void Install()
         {

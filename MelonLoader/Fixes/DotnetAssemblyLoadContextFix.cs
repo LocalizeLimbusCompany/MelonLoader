@@ -39,7 +39,7 @@ namespace MelonLoader.Fixes
 
         public static bool PreAssemblyLoad(byte[] rawAssembly, byte[] rawSymbolStore, ref Assembly __result)
         {
-            if(MelonDebug.IsEnabled() && !Environment.StackTrace.Contains("HarmonyLib"))
+            if (MelonDebug.IsEnabled() && !Environment.StackTrace.Contains("HarmonyLib"))
                 MelonDebug.Msg($"[.NET AssemblyLoadContext Fix] Redirecting Assembly.Load call with {rawAssembly.Length}-byte assembly to AssemblyLoadContext.Default. Mod Devs: You may wish to use this explictly.");
 
             var (ok, reason) = AssemblyVerifier.VerifyByteArray(rawAssembly);

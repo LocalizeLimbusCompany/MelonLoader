@@ -26,7 +26,7 @@ namespace MelonLoader.Support.Preferences
 
         private static TomlValue WriteColor(Color value)
         {
-            float[] floats = new[] { value.r * 255, value.g * 255, value.b * 255, value.a * 255};
+            float[] floats = new[] { value.r * 255, value.g * 255, value.b * 255, value.a * 255 };
             return MelonPreferences.Mapper.WriteArray(floats);
         }
 

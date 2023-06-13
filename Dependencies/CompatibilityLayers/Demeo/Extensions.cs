@@ -1,6 +1,6 @@
 ﻿using Boardgame.Modding;
-using System.Reflection;
 using HarmonyLib;
+using System.Reflection;
 
 namespace MelonLoader.CompatibilityLayers
 {
@@ -33,15 +33,13 @@ namespace MelonLoader.CompatibilityLayers
             {
                 if (name_set_method == null)
                     name_set_method = AccessTools.Property(typeof(ModdingAPI.ModInformation), "name").GetSetMethod();
-                if (name_set_method != null)
-                    name_set_method.Invoke(info, new object[] { name });
+                name_set_method?.Invoke(info, new object[] { name });
             }
             else
             {
                 if (name_field == null)
                     name_field = AccessTools.Field(typeof(ModdingAPI.ModInformation), "name");
-                if (name_field != null)
-                    name_field.SetValue(info, name);
+                name_field?.SetValue(info, name);
             }
         }
 
@@ -71,15 +69,13 @@ namespace MelonLoader.CompatibilityLayers
             {
                 if (version_method == null)
                     version_method = AccessTools.Property(typeof(ModdingAPI.ModInformation), "version").GetSetMethod();
-                if (version_method != null)
-                    version_method.Invoke(info, new object[] { version });
+                version_method?.Invoke(info, new object[] { version });
             }
             else
             {
                 if (version_field == null)
                     version_field = AccessTools.Field(typeof(ModdingAPI.ModInformation), "version");
-                if (version_field != null)
-                    version_field.SetValue(info, version);
+                version_field?.SetValue(info, version);
             }
         }
 
@@ -109,15 +105,13 @@ namespace MelonLoader.CompatibilityLayers
             {
                 if (author_method == null)
                     author_method = AccessTools.Property(typeof(ModdingAPI.ModInformation), "author").GetSetMethod();
-                if (author_method != null)
-                    author_method.Invoke(info, new object[] { author });
+                author_method?.Invoke(info, new object[] { author });
             }
             else
             {
                 if (author_field == null)
                     author_field = AccessTools.Field(typeof(ModdingAPI.ModInformation), "author");
-                if (author_field != null)
-                    author_field.SetValue(info, author);
+                author_field?.SetValue(info, author);
             }
         }
 
@@ -129,15 +123,13 @@ namespace MelonLoader.CompatibilityLayers
             {
                 if (description_method == null)
                     description_method = AccessTools.Property(typeof(ModdingAPI.ModInformation), "description").GetSetMethod();
-                if (description_method != null)
-                    description_method.Invoke(info, new object[] { description });
+                description_method?.Invoke(info, new object[] { description });
             }
             else
             {
                 if (description_field == null)
                     description_field = AccessTools.Field(typeof(ModdingAPI.ModInformation), "description");
-                if (description_field != null)
-                    description_field.SetValue(info, description);
+                description_field?.SetValue(info, description);
             }
         }
 
@@ -149,15 +141,13 @@ namespace MelonLoader.CompatibilityLayers
             {
                 if (isNetworkCompatible_method == null)
                     isNetworkCompatible_method = AccessTools.Property(typeof(ModdingAPI.ModInformation), "isNetworkCompatible").GetSetMethod();
-                if (isNetworkCompatible_method != null)
-                    isNetworkCompatible_method.Invoke(info, new object[] { isNetworkCompatible });
+                isNetworkCompatible_method?.Invoke(info, new object[] { isNetworkCompatible });
             }
             else
             {
                 if (isNetworkCompatible_field == null)
                     isNetworkCompatible_field = AccessTools.Field(typeof(ModdingAPI.ModInformation), "isNetworkCompatible");
-                if (isNetworkCompatible_field != null)
-                    isNetworkCompatible_field.SetValue(info, isNetworkCompatible);
+                isNetworkCompatible_field?.SetValue(info, isNetworkCompatible);
             }
         }
     }

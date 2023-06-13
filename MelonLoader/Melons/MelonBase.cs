@@ -529,7 +529,7 @@ namespace MelonLoader
         private void PrintLoadInfo()
         {
             MelonLogger.WriteLine(Color.DarkGreen);
-            
+
             MelonLogger.Internal_PrintModName(ConsoleColor, AuthorConsoleColor, Info.Name, Info.Author, AdditionalCredits?.Credits, Info.Version, ID);
             MelonLogger.MsgDirect(Color.DarkGray, $"Assembly: {Path.GetFileName(MelonAssembly.Location)}");
 

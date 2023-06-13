@@ -15,7 +15,7 @@ namespace UnhollowerMini
         private static unsafe string BuildMessage(IntPtr exception)
         {
             if (ParseMessageHook != null) return ParseMessageHook(exception);
-            if (ourMessageBytes == null) ourMessageBytes = new byte[65536];
+            ourMessageBytes ??= new byte[65536];
             fixed (byte* message = ourMessageBytes)
                 UnityInternals.format_exception(exception, message, ourMessageBytes.Length);
             string builtMessage = Encoding.UTF8.GetString(ourMessageBytes, 0, Array.IndexOf(ourMessageBytes, (byte)0));

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using MelonLoader.Modules;
+using MelonLoader.MonoInternals;
+using ModHelper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using MelonLoader.Modules;
-using MelonLoader.MonoInternals;
-using ModHelper;
 
 namespace MelonLoader.CompatibilityLayers
 {

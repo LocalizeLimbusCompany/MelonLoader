@@ -44,7 +44,7 @@ namespace MelonLoader
         /// <param name="version">Version of the Melon</param>
         /// <param name="author">Author of the Melon</param>
         /// <param name="downloadLink">URL to the download link of the mod [optional]</param>
-        public MelonInfoAttribute(Type type, string name, string version, string author, string downloadLink = null) 
+        public MelonInfoAttribute(Type type, string name, string version, string author, string downloadLink = null)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
