@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+using Semver;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using Semver;
+using System.Net.NetworkInformation;
 
 namespace MelonLoader.Il2CppAssemblyGenerator.Packages
 {
@@ -9,8 +10,12 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages
     {
         private static string ReleaseName =>
             MelonUtils.IsWindows ? "Windows-Netframework472" : MelonUtils.IsUnix ? "Linux" : "OSX";
+        // 获取最快节点
+        private static string fastestNode;
+
         internal Cpp2IL()
         {
+            fastestNode = GetFastnetNode();
             Version = MelonLaunchOptions.Il2CppAssemblyGenerator.ForceVersion_Dumper;
 #if !DEBUG
             if (string.IsNullOrEmpty(Version) || Version.Equals("0.0.0.0"))
@@ -23,22 +28,22 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages
             Destination = Path.Combine(Core.BasePath, Name);
             OutputFolder = Path.Combine(Destination, "cpp2il_out");
 
-            URL = $"https://github.com/SamboyCoding/{Name}/releases/download/{Version}/{Name}-{Version}-{ReleaseName}.zip";
+            URL = "https://" + fastestNode + $"/files/{Name}-{Version}-{ReleaseName}.zip";
 
             ExeFilePath = Path.Combine(Destination, $"{Name}.exe");
-            
+
             FilePath = Path.Combine(Core.BasePath, $"{Name}_{Version}.zip");
 
-            if (MelonUtils.IsWindows) 
+            if (MelonUtils.IsWindows)
                 return;
-            
+
             URL = URL.Replace(".zip", "");
             ExeFilePath = ExeFilePath.Replace(".exe", "");
             FilePath = FilePath.Replace(".zip", "");
         }
 
-        internal override bool ShouldSetup() 
-            => string.IsNullOrEmpty(Config.Values.DumperVersion) 
+        internal override bool ShouldSetup()
+            => string.IsNullOrEmpty(Config.Values.DumperVersion)
             || !Config.Values.DumperVersion.Equals(Version);
 
         internal override void Cleanup() { }
@@ -93,6 +98,35 @@ namespace MelonLoader.Il2CppAssemblyGenerator.Packages
                 return true;
 
             return false;
+        }
+        private string GetFastnetNode()
+        {
+            string[] urls = { "limbus.determination.top", "llc.determination.top", "dl.determination.top" };
+
+            Dictionary<string, long> pingTimes = new();
+
+            foreach (string url in urls)
+            {
+                Ping ping = new();
+                try
+                {
+                    PingReply reply = ping.Send(url);
+                    if (reply.Status == IPStatus.Success)
+                    {
+                        pingTimes.Add(url, reply.RoundtripTime);
+                    }
+                }
+                catch
+                {
+                }
+            }
+
+            List<KeyValuePair<string, long>> pingTimesList = new(pingTimes);
+            pingTimesList.Sort(delegate (KeyValuePair<string, long> pair1, KeyValuePair<string, long> pair2)
+            {
+                return pair1.Value.CompareTo(pair2.Value);
+            });
+            return pingTimesList[0].Key;
         }
     }
 }
