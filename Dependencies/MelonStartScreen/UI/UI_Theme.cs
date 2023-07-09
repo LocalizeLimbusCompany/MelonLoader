@@ -156,8 +156,8 @@ namespace MelonLoader.MelonStartScreen
         {
             public LogoImageSettings()
             {
-                Size.Item1 = 262;
-                Size.Item2 = 212;
+                Size.Item1 = 200;
+                Size.Item2 = 200;
                 Position.Item2 = -(Size.Item2 / 2);
 
                 Anchor = UI_Anchor.MiddleCenter;
@@ -171,7 +171,7 @@ namespace MelonLoader.MelonStartScreen
             {
                 Position.Item2 = 35;
                 Size.Item1 = 200;
-                Size.Item2 = 132;
+                Size.Item2 = 200;
 
                 Anchor = UI_Anchor.LowerRight;
                 ScreenAnchor = UI_Anchor.LowerRight;
@@ -223,7 +223,7 @@ namespace MelonLoader.MelonStartScreen
             internal FilterMode Filter = FilterMode.Bilinear;
 
             [TomlPrecedingComment("If the Image should attempt to Maintain it's Aspect Ratio")]
-            internal bool MaintainAspectRatio = true;
+            internal bool MaintainAspectRatio = false;
         }
 
         private static Color ReadColor(TomlValue value)
